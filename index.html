@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SAFENEST™ | Your home. Your route. One System.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        :root {
+            --primary: #0a4da2;
+            --primary-light: #2d6bc2;
+            --primary-dark: #083a7a;
+            --secondary: #10b981;
+            --secondary-light: #34d399;
+            --accent: #f59e0b;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.06);
+            --radius: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            line-height: 1.6;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+        
+        /* ===== APP CONTAINER ===== */
+        #app {
+            width: 100%;
+            height: 100vh;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            background: var(--bg-white);
+            border-radius: 0;
+        }
+        
+        /* ===== UTILITY CLASSES ===== */
+        .hidden {
+            display: none !important;
+        }
+        
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* ===== SCREENS ===== */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            background: var(--bg-light);
+            padding-bottom: 80px; /* Space for bottom nav */
+        }
+        
+        .screen.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+            z-index: 10;
+        }
+        
+        .screen.exit-left {
+            transform: translateX(-20px);
+        }
+        
+        .screen.exit-right {
+            transform: translateX(20px);
+        }
+        
+        /* ===== APP HEADER ===== */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 12px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(10, 77, 162, 0.1);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 18px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .back-btn:hover {
+            background: rgba(10, 77, 162, 0.2);
+            transform: translateX(-2px);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            box-shadow: var(--shadow);
+        }
+        
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo-text span {
+            font-size: 1rem;
+            vertical-align: super;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .header-action {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(10, 77, 162, 0.1);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .header-action:hover {
+            background: rgba(10, 77, 162, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* ===== BOTTOM NAVIGATION ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 12px 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+        
+        .nav-item i {
+            font-size: 20px;
+            transition: var(--transition);
+        }
+        
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+        
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(10, 77, 162, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            color: var(--primary);
+        }
+        
+        .nav-item.active i {
+            color: var(--primary);
+        }
+        
+        /* ===== WELCOME SCREEN ===== */
+        #welcome-screen {
+            background: linear-gradient(135deg, #0a4da2 0%, #10b981 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 0;
+        }
+        
+        .welcome-top {
+            padding: 60px 40px 40px;
+            text-align: center;
+        }
+        
+        .welcome-logo {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-logo .logo-icon {
+            width: 80px;
+            height: 80px;
+            font-size: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        .welcome-logo h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            margin-bottom: 8px;
+        }
+        
+        .welcome-logo .tagline {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .welcome-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 20px;
+        }
+        
+        .welcome-bottom {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            padding: 40px;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 18px 24px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+        
+        .demo-box {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .demo-credentials {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .demo-field {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        /* ===== DASHBOARD SCREEN ===== */
+        .dashboard-header {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+            margin-bottom: -20px;
+        }
+        
+        .greeting {
+            margin-bottom: 20px;
+        }
+        
+        .greeting h2 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .greeting p {
+            opacity: 0.9;
+        }
+        
+        .search-box {
+            background: white;
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+        
+        .search-box i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .dashboard-content {
+            padding: 20px;
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .section-title a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            padding: 16px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        
+        /* ===== PROPERTY CARD ===== */
+        .property-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition);
+        }
+        
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .property-image {
+            height: 180px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .property-badges {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            display: flex;
+            gap: 8px;
+        }
+        
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .badge-type {
+            background: rgba(10, 77, 162, 0.9);
+        }
+        
+        .badge-transport {
+            background: rgba(16, 185, 129, 0.9);
+        }
+        
+        .property-fav {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+        
+        .property-fav.active {
+            color: #ef4444;
+        }
+        
+        .property-content {
+            padding: 16px;
+        }
+        
+        .property-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        
+        .property-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        
+        .property-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        .property-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .property-price span {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        .property-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        
+        .amenity {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-light);
+            background: rgba(10, 77, 162, 0.05);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+        
+        .property-footer {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-solid {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        .btn-solid:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* ===== PROPERTY DETAIL SCREEN ===== */
+        .property-detail {
+            padding-bottom: 100px;
+        }
+        
+        .property-detail-image {
+            height: 300px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .property-detail-content {
+            padding: 20px;
+        }
+        
+        .property-main-info {
+            margin-bottom: 24px;
+        }
+        
+        .property-detail-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .property-detail-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .property-detail-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        
+        .property-description {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .property-description h4 {
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+        
+        .amenities-section {
+            margin-bottom: 24px;
+        }
+        
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        
+        .amenity-item {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .amenity-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        
+        .transport-section {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(10, 77, 162, 0.1) 100%);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .transport-section h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--secondary);
+            margin-bottom: 16px;
+        }
+        
+        .transport-option {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+        }
+        
+        .transport-info h5 {
+            margin-bottom: 4px;
+            font-size: 1rem;
+        }
+        
+        .transport-info p {
+            font-size: 13px;
+            color: var(--text-light);
+        }
+        
+        .booking-bar {
+            position: fixed;
+            bottom: 80px;
+            left: 0;
+            width: 100%;
+            max-width: 480px;
+            padding: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 16px;
+            z-index: 900;
+        }
+        
+        .booking-price {
+            flex: 1;
+        }
+        
+        .booking-price .price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .booking-price .period {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+        
+        /* ===== LOGIN & REGISTER SCREENS ===== */
+        .auth-screen {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        
+        .auth-header {
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+        
+        .auth-header h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .auth-header p {
+            color: var(--text-light);
+        }
+        
+        .auth-content {
+            flex: 1;
+            padding: 0 20px 20px;
+        }
+        
+        .auth-form {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 1.5px solid rgba(10, 77, 162, 0.1);
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            background: white;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(10, 77, 162, 0.1);
+        }
+        
+        .user-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .user-type-card {
+            background: white;
+            border: 2px solid rgba(10, 77, 162, 0.1);
+            border-radius: 12px;
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .user-type-card.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(10, 77, 162, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+        }
+        
+        .user-type-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, rgba(10, 77, 162, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: var(--primary);
+            font-size: 18px;
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-light);
+        }
+        
+        .auth-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        /* ===== PROFILE SCREEN ===== */
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 40px 20px;
+            color: white;
+            text-align: center;
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        
+        .profile-name {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        
+        .profile-type {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .profile-content {
+            padding: 20px;
+        }
+        
+        .profile-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .profile-section h3 {
+            margin-bottom: 16px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(10, 77, 162, 0.1);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: var(--text-light);
+        }
+        
+        .info-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        /* ===== MODALS ===== */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-lg);
+            animation: modalSlideIn 0.3s ease;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 24px 24px 16px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-light);
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        
+        .modal-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        .modal-footer {
+            padding: 16px 24px 24px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 12px;
+        }
+        
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 16px 24px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            max-width: 90%;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .toast i {
+            font-size: 20px;
+        }
+        
+        /* ===== CUSTOM SCROLLBAR ===== */
+        .screen::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .screen::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .screen::-webkit-scrollbar-thumb {
+            background: rgba(10, 77, 162, 0.2);
+            border-radius: 3px;
+        }
+        
+        .screen::-webkit-scrollbar-thumb:hover {
+            background: rgba(10, 77, 162, 0.4);
+        }
+        
+        /* ===== LOADING ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* ===== RESPONSIVE ADJUSTMENTS ===== */
+        @media (max-height: 700px) {
+            .welcome-top {
+                padding: 40px 20px 20px;
+            }
+            
+            .welcome-bottom {
+                padding: 30px 20px;
+            }
+            
+            .property-detail-image {
+                height: 250px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            #app {
+                border-radius: 0;
+            }
+            
+            .welcome-logo h1 {
+                font-size: 2.2rem;
+            }
+            
+            .property-detail-image {
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav hidden" id="bottom-nav">
+            <a href="#" class="nav-item active" onclick="showScreen('dashboard')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('listings')">
+                <i class="fas fa-search"></i>
+                <span>Browse</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('saved')">
+                <i class="fas fa-heart"></i>
+                <span>Saved</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('profile')">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </div>
+
+        <!-- Screen 1: Welcome -->
+        <div class="screen active" id="welcome-screen">
+            <div class="welcome-top">
+                <div class="welcome-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h1>SAFENEST<span>™</span></h1>
+                    <p class="tagline">Your home. Your route. One System.</p>
+                </div>
+                
+                <div class="welcome-features">
+                    <div class="feature-card fade-in" style="animation-delay: 0.1s">
+                        <div class="feature-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4>Verified Homes</h4>
+                        <p>Safe & inspected properties</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in" style="animation-delay: 0.2s">
+                        <div class="feature-icon">
+                            <i class="fas fa-bus"></i>
+                        </div>
+                        <h4>Smart Transport</h4>
+                        <p>Integrated commute solutions</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in" style="animation-delay: 0.3s">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Safe & Secure</h4>
+                        <p>Verified landlords & payments</p>
+                    </div>
+                    
+                    <div class="feature-card fade-in" style="animation-delay: 0.4s">
+                        <div class="feature-icon">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <h4>Premium Experience</h4>
+                        <p>Luxury student living</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="welcome-bottom">
+                <div class="auth-buttons">
+                    <button class="btn btn-primary" onclick="showScreen('register')">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                    <button class="btn btn-secondary" onclick="showScreen('login')">
+                        <i class="fas fa-sign-in-alt"></i> Login
+                    </button>
+                </div>
+                
+                <div class="demo-box">
+                    <h3>Investor Demo Access</h3>
+                    <div class="demo-credentials">
+                        <div class="demo-field">
+                            <span>Phone:</span>
+                            <strong>971234567</strong>
+                        </div>
+                        <div class="demo-field">
+                            <span>Password:</span>
+                            <strong>demo123</strong>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="quickDemoLogin()" style="width: 100%;">
+                        <i class="fas fa-rocket"></i> Quick Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Login -->
+        <div class="screen" id="login-screen">
+            <div class="auth-screen">
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Login to your SAFENEST account</p>
+                </div>
+                
+                <div class="auth-content">
+                    <div class="auth-form">
+                        <form id="login-form" onsubmit="login(event)">
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" placeholder="260971234567" value="971234567" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-input" placeholder="Enter your password" value="demo123" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-sign-in-alt"></i> Login to SAFENEST
+                            </button>
+                        </form>
+                        
+                        <div class="demo-credentials" style="margin-top: 30px; background: rgba(10, 77, 162, 0.05); padding: 15px; border-radius: 12px;">
+                            <div style="font-weight: 600; color: var(--primary); margin-bottom: 10px;">Demo Credentials:</div>
+                            <div class="demo-field">
+                                <span>Phone:</span>
+                                <strong>971234567</strong>
+                            </div>
+                            <div class="demo-field">
+                                <span>Password:</span>
+                                <strong>demo123</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" class="auth-link" onclick="showScreen('register')">Register here</a></p>
+                        <p>or <a href="#" class="auth-link" onclick="showScreen('welcome')">Go back to home</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 3: Register -->
+        <div class="screen" id="register-screen">
+            <div class="auth-screen">
+                <div class="auth-header">
+                    <h2>Join SAFENEST</h2>
+                    <p>Create your premium housing profile</p>
+                </div>
+                
+                <div class="auth-content">
+                    <div class="auth-form">
+                        <form id="register-form" onsubmit="register(event)">
+                            <div class="form-group">
+                                <label class="form-label">I am a:</label>
+                                <div class="user-type-grid">
+                                    <div class="user-type-card" data-type="student" onclick="selectUserType('student')">
+                                        <div class="user-type-icon">
+                                            <i class="fas fa-graduation-cap"></i>
+                                        </div>
+                                        <div>Student</div>
+                                    </div>
+                                    
+                                    <div class="user-type-card" data-type="professional" onclick="selectUserType('professional')">
+                                        <div class="user-type-icon">
+                                            <i class="fas fa-briefcase"></i>
+                                        </div>
+                                        <div>Professional</div>
+                                    </div>
+                                    
+                                    <div class="user-type-card" data-type="couple" onclick="selectUserType('couple')">
+                                        <div class="user-type-icon">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                        <div>Couple</div>
+                                    </div>
+                                    
+                                    <div class="user-type-card" data-type="family" onclick="selectUserType('family')">
+                                        <div class="user-type-icon">
+                                            <i class="fas fa-users"></i>
+                                        </div>
+                                        <div>Family</div>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="user-type" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-input" placeholder="John Banda" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-input" placeholder="260971234567" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-input" placeholder="Create a secure password" required>
+                            </div>
+                            
+                            <div class="form-group" id="institution-field">
+                                <label class="form-label">Institution</label>
+                                <select class="form-input">
+                                    <option value="">Select institution</option>
+                                    <option value="UNZA">University of Zambia (UNZA)</option>
+                                    <option value="CBU">Copperbelt University (CBU)</option>
+                                    <option value="MU">Mulungushi University (MU)</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+                                <i class="fas fa-user-plus"></i> Create Premium Account
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" class="auth-link" onclick="showScreen('login')">Login here</a></p>
+                        <p>or <a href="#" class="auth-link" onclick="showScreen('welcome')">Go back to home</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 4: Dashboard -->
+        <div class="screen" id="dashboard-screen">
+            <div class="dashboard-header">
+                <div class="greeting">
+                    <h2 id="greeting-text">Good morning, John!</h2>
+                    <p>Find your perfect home with transport</p>
+                </div>
+                
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search locations, properties..." onfocus="showScreen('listings')">
+                    <button class="header-action">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="stat-value">142</div>
+                        <div class="stat-label">Properties</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);">
+                            <i class="fas fa-bus"></i>
+                        </div>
+                        <div class="stat-value">67</div>
+                        <div class="stat-label">Transport</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-value" id="saved-count">5</div>
+                        <div class="stat-label">Saved</div>
+                    </div>
+                </div>
+                
+                <div class="section-title">
+                    <h3>Featured Properties</h3>
+                    <a href="#" onclick="showScreen('listings')">View all</a>
+                </div>
+                
+                <div class="properties-grid" id="featured-properties">
+                    <!-- Featured properties will load here -->
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">
+                    <h3>AI Recommendations</h3>
+                    <a href="#">Personalized</a>
+                </div>
+                
+                <div class="properties-grid" id="ai-recommendations">
+                    <!-- AI recommendations will load here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 5: All Listings -->
+        <div class="screen" id="listings-screen">
+            <div class="app-header">
+                <div class="header-left">
+                    <button class="back-btn" onclick="showScreen('dashboard')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="logo-text gradient-text">Browse</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-action">
+                        <i class="fas fa-filter"></i>
+                    </button>
+                    <button class="header-action">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="search-box" style="margin: 20px;">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search Woodlands, Ridgeway, Kabulonga...">
+                </div>
+                
+                <div class="properties-grid" id="all-properties" style="padding: 0 20px 100px;">
+                    <!-- All properties will load here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 6: Property Detail -->
+        <div class="screen" id="property-screen">
+            <div class="property-detail">
+                <div class="app-header">
+                    <div class="header-left">
+                        <button class="back-btn" onclick="goBackToListings()">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                    </div>
+                    <div class="header-right">
+                        <button class="header-action" id="property-fav-btn" onclick="toggleFavorite(currentPropertyId)">
+                            <i class="far fa-heart"></i>
+                        </button>
+                        <button class="header-action">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="property-detail-image" id="property-main-image">
+                    <!-- Property image will load here -->
+                </div>
+                
+                <div class="property-detail-content">
+                    <div class="property-main-info">
+                        <div class="property-detail-price" id="property-price">850 ZMW</div>
+                        <h2 class="property-detail-title" id="property-title">Modern Bedsitter near UNZA</h2>
+                        <div class="property-detail-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="property-location">Woodlands, Lusaka</span>
+                            <span class="badge badge-type" id="property-type">Bedsitter</span>
+                        </div>
+                    </div>
+                    
+                    <div class="property-description">
+                        <h4>About this property</h4>
+                        <p id="property-description">
+                            A spacious, well-lit bedsitter perfect for students. Recently renovated with modern finishes, 24/7 security, and reliable water supply. Located just 10 minutes from UNZA main campus.
+                        </p>
+                    </div>
+                    
+                    <div class="amenities-section">
+                        <h4>Amenities</h4>
+                        <div class="amenities-grid" id="property-amenities">
+                            <!-- Amenities will load here -->
+                        </div>
+                    </div>
+                    
+                    <div class="transport-section">
+                        <h4><i class="fas fa-bus"></i> Transport Options</h4>
+                        <p style="margin-bottom: 16px; color: var(--text-light);">Choose from verified transport services:</p>
+                        <div id="transport-options">
+                            <!-- Transport options will load here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-bar">
+                    <div class="booking-price">
+                        <div class="price">950 ZMW</div>
+                        <div class="period">/month with transport</div>
+                    </div>
+                    <button class="btn-solid" onclick="showBookingModal()">
+                        <i class="fas fa-calendar-check"></i> Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 7: Saved Properties -->
+        <div class="screen" id="saved-screen">
+            <div class="app-header">
+                <div class="header-left">
+                    <button class="back-btn" onclick="showScreen('dashboard')">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="logo">
+                        <div class="logo-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="logo-text gradient-text">Saved</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-action" onclick="showScreen('listings')">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dashboard-content">
+                <div class="properties-grid" id="saved-properties" style="padding: 20px 20px 100px;">
+                    <!-- Saved properties will load here -->
+                </div>
+                
+                <div id="no-saved-message" class="hidden" style="text-align: center; padding: 60px 20px;">
+                    <div style="font-size: 4rem; color: rgba(10, 77, 162, 0.1); margin-bottom: 20px;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 style="margin-bottom: 10px; color: var(--primary);">No Saved Properties</h3>
+                    <p style="color: var(--text-light); margin-bottom: 30px;">Browse properties and tap the heart icon to save them here.</p>
+                    <button class="btn btn-primary" onclick="showScreen('listings')">
+                        <i class="fas fa-search"></i> Explore Properties
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 8: Profile -->
+        <div class="screen" id="profile-screen">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profile-avatar">
+                    JB
+                </div>
+                <h2 class="profile-name" id="profile-name">John Banda</h2>
+                <span class="profile-type" id="profile-type">Student</span>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-section">
+                    <h3>Account Information</h3>
+                    <div class="info-item">
+                        <span class="info-label">Phone</span>
+                        <span class="info-value" id="profile-phone">971234567</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Institution</span>
+                        <span class="info-value" id="profile-institution">UNZA</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Budget</span>
+                        <span class="info-value" id="profile-budget">800-1200 ZMW</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Member since</span>
+                        <span class="info-value">Oct 2023</span>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h3>Preferences</h3>
+                    <div class="info-item">
+                        <span class="info-label">Notifications</span>
+                        <span class="info-value">Enabled</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">AI Recommendations</span>
+                        <span class="info-value">Personalized</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Theme</span>
+                        <span class="info-value">Light</span>
+                    </div>
+                </div>
+                
+                <div class="profile-section">
+                    <h3>Statistics</h3>
+                    <div class="info-item">
+                        <span class="info-label">Properties Viewed</span>
+                        <span class="info-value">24</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Saved</span>
+                        <span class="info-value" id="profile-saved-count">5</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Contacts Made</span>
+                        <span class="info-value">3</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Bookings</span>
+                        <span class="info-value">1</span>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Booking Modal -->
+        <div class="modal" id="booking-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Complete Booking</h3>
+                    <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+                </div>
+                
+                <div class="modal-body">
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <div class="logo-icon" style="margin: 0 auto 16px;">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4 id="booking-property-title">Modern Bedsitter</h4>
+                        <p id="booking-property-location" style="color: var(--text-light);">Woodlands, Lusaka</p>
+                    </div>
+                    
+                    <div style="background: rgba(10, 77, 162, 0.05); padding: 20px; border-radius: 12px; margin-bottom: 24px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                            <span style="color: var(--text-light);">Package</span>
+                            <span style="font-weight: 600;" id="booking-package">Housing + Transport</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                            <span style="color: var(--text-light);">Duration</span>
+                            <span style="font-weight: 600;" id="booking-duration">6 months</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                            <span style="color: var(--text-light);">Move-in</span>
+                            <span style="font-weight: 600;" id="booking-move-in">15 Nov 2023</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(10, 77, 162, 0.1);">
+                            <span style="color: var(--text-light);">Total</span>
+                            <span style="font-size: 1.3rem; font-weight: 800; color: var(--primary);" id="booking-total">5,700 ZMW</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Special Requests (Optional)</label>
+                        <textarea class="form-input" rows="3" placeholder="Any special requirements..."></textarea>
+                    </div>
+                    
+                    <div style="margin-top: 24px;">
+                        <label style="display: flex; align-items: flex-start; gap: 10px;">
+                            <input type="checkbox" required style="margin-top: 5px;">
+                            <span style="font-size: 14px;">I agree to the terms and understand this booking is subject to owner confirmation.</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeBookingModal()" style="flex: 1;">Cancel</button>
+                    <button class="btn btn-primary" onclick="submitBooking()" style="flex: 2;">
+                        <i class="fas fa-lock"></i> Confirm Booking
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast">
+            <i class="fas fa-check-circle"></i>
+            <span id="toast-message">Welcome to SAFENEST!</span>
+        </div>
+    </div>
+
+    <script>
+        // ===== APP STATE =====
+        let currentUser = null;
+        let currentScreen = 'welcome';
+        let previousScreen = 'welcome';
+        let currentPropertyId = null;
+        let savedProperties = ['prop_001', 'prop_002', 'prop_004'];
+        let userType = 'student';
+        
+        // Sample properties data (keeping your AI images)
+        const properties = [
+            {
+                id: 'prop_001',
+                title: 'Modern Bedsitter near UNZA',
+                price: 850,
+                location: 'Woodlands, Lusaka',
+                type: 'Bedsitter',
+                description: 'A spacious, well-lit bedsitter perfect for students. Recently renovated with modern finishes, 24/7 security, and reliable water supply. Located just 10 minutes from UNZA main campus with easy access to public transport.',
+                image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                amenities: ['WiFi Included', '24/7 Security', 'Water Included', 'Furnished', 'Private Bathroom'],
+                transportAvailable: true,
+                bundlePrice: 950,
+                featured: true,
+                aiRecommended: true
+            },
+            {
+                id: 'prop_002',
+                title: 'Cozy 1-Bedroom in Ridgeway',
+                price: 1200,
+                location: 'Ridgeway, Lusaka',
+                type: '1-Bedroom',
+                description: 'Fully furnished one-bedroom apartment with kitchenette and living area. Secure compound with parking space. Walking distance to shops and restaurants.',
+                image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                amenities: ['WiFi Ready', 'Security', 'Parking', 'Fully Furnished', 'Kitchenette'],
+                transportAvailable: true,
+                bundlePrice: 1350,
+                featured: true,
+                aiRecommended: false
+            },
+            {
+                id: 'prop_003',
+                title: 'Spacious Shared Room near CBU',
+                price: 600,
+                location: 'Kitwe, Copperbelt',
+                type: 'Shared',
+                description: 'Large shared room in a student house. Perfect for budget-conscious students. Includes study area and shared kitchen.',
+                image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                amenities: ['Study Area', 'Shared Kitchen', '24/7 Security', 'Water Included', 'WiFi Ready'],
+                transportAvailable: false,
+                bundlePrice: null,
+                featured: false,
+                aiRecommended: true
+            },
+            {
+                id: 'prop_004',
+                title: 'Luxury 2-Bedroom in Kabulonga',
+                price: 2200,
+                location: 'Kabulonga, Lusaka',
+                type: '2-Bedroom',
+                description: 'Modern two-bedroom apartment with premium finishes. Perfect for couples or roommates. Includes gym access and swimming pool.',
+                image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80',
+                amenities: ['Swimming Pool', 'Gym Access', '24/7 Security', 'Parking', 'Fully Furnished', 'WiFi Included'],
+                transportAvailable: true,
+                bundlePrice: 2450,
+                featured: true,
+                aiRecommended: false
+            }
+        ];
+        
+        // ===== UTILITY FUNCTIONS =====
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const icon = toast.querySelector('i');
+            const messageEl = document.getElementById('toast-message');
+            
+            // Set icon based on type
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle';
+                toast.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-times-circle';
+                toast.style.background = 'linear-gradient(135deg, #ef4444 0%, #f87171 100%)';
+            } else if (type === 'warning') {
+                icon.className = 'fas fa-exclamation-triangle';
+                toast.style.background = 'linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%)';
+            }
+            
+            messageEl.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ===== SCREEN MANAGEMENT =====
+        function showScreen(screenId) {
+            if (currentScreen === screenId) return;
+            
+            const currentEl = document.getElementById(`${currentScreen}-screen`);
+            const nextEl = document.getElementById(`${screenId}-screen`);
+            
+            // Store previous screen for back navigation
+            previousScreen = currentScreen;
+            
+            // Add exit animation
+            currentEl.classList.add('exit-left');
+            
+            // Show bottom nav for main screens
+            const bottomNav = document.getElementById('bottom-nav');
+            if (screenId === 'dashboard' || screenId === 'listings' || screenId === 'saved' || screenId === 'profile') {
+                bottomNav.classList.remove('hidden');
+                // Update active nav item
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                document.querySelector(`.nav-item[onclick*="${screenId}"]`).classList.add('active');
+            } else {
+                bottomNav.classList.add('hidden');
+            }
+            
+            // Update app header based on screen
+            updateAppHeader(screenId);
+            
+            setTimeout(() => {
+                currentEl.classList.remove('active');
+                currentEl.classList.remove('exit-left');
+                
+                nextEl.classList.add('active');
+                currentScreen = screenId;
+                
+                // Load screen content
+                loadScreenContent(screenId);
+            }, 300);
+        }
+        
+        function updateAppHeader(screenId) {
+            // Update greeting on dashboard
+            if (screenId === 'dashboard' && currentUser) {
+                const hour = new Date().getHours();
+                let greeting = 'Good evening';
+                if (hour < 12) greeting = 'Good morning';
+                else if (hour < 18) greeting = 'Good afternoon';
+                
+                document.getElementById('greeting-text').textContent = `${greeting}, ${currentUser.name.split(' ')[0]}!`;
+            }
+        }
+        
+        function loadScreenContent(screenId) {
+            switch(screenId) {
+                case 'dashboard':
+                    loadDashboard();
+                    break;
+                case 'listings':
+                    loadAllProperties();
+                    break;
+                case 'property':
+                    if (currentPropertyId) {
+                        loadPropertyDetail(currentPropertyId);
+                    }
+                    break;
+                case 'saved':
+                    loadSavedProperties();
+                    break;
+                case 'profile':
+                    loadProfile();
+                    break;
+            }
+        }
+        
+        function goBack() {
+            if (previousScreen) {
+                showScreen(previousScreen);
+            } else {
+                showScreen('dashboard');
+            }
+        }
+        
+        function goBackToListings() {
+            showScreen('listings');
+        }
+        
+        // ===== AUTHENTICATION =====
+        function quickDemoLogin() {
+            currentUser = {
+                name: 'John Banda',
+                phone: '971234567',
+                type: 'student',
+                institution: 'University of Zambia (UNZA)',
+                budget: '800-1200 ZMW'
+            };
+            
+            userType = 'student';
+            showToast('Welcome to SAFENEST Premium!', 'success');
+            showScreen('dashboard');
+        }
+        
+        function login(event) {
+            event.preventDefault();
+            
+            // Simulate login with demo credentials
+            currentUser = {
+                name: 'John Banda',
+                phone: '971234567',
+                type: 'student',
+                institution: 'University of Zambia (UNZA)',
+                budget: '800-1200 ZMW'
+            };
+            
+            userType = 'student';
+            showToast('Welcome back to SAFENEST!', 'success');
+            showScreen('dashboard');
+        }
+        
+        function selectUserType(type) {
+            userType = type;
+            document.querySelectorAll('.user-type-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`.user-type-card[data-type="${type}"]`).classList.add('selected');
+            
+            // Show/hide institution field
+            const institutionField = document.getElementById('institution-field');
+            if (type === 'student') {
+                institutionField.classList.remove('hidden');
+            } else {
+                institutionField.classList.add('hidden');
+            }
+        }
+        
+        function register(event) {
+            event.preventDefault();
+            
+            const name = document.querySelector('#register-form input[type="text"]').value || 'John Banda';
+            const phone = document.querySelector('#register-form input[type="tel"]').value || '971234567';
+            
+            currentUser = {
+                name,
+                phone,
+                type: userType,
+                institution: userType === 'student' ? 'University of Zambia (UNZA)' : 'N/A',
+                budget: '800-1200 ZMW'
+            };
+            
+            showToast(`Welcome to SAFENEST, ${name}!`, 'success');
+            showScreen('dashboard');
+        }
+        
+        function logout() {
+            currentUser = null;
+            showToast('Logged out successfully', 'success');
+            showScreen('welcome');
+        }
+        
+        // ===== PROPERTY FUNCTIONS =====
+        function createPropertyCard(property) {
+            const isSaved = savedProperties.includes(property.id);
+            
+            return `
+                <div class="property-card" onclick="viewProperty('${property.id}')">
+                    <div class="property-image" style="background-image: url('${property.image}');">
+                        <div class="property-badges">
+                            <span class="badge badge-type">${property.type}</span>
+                            ${property.transportAvailable ? '<span class="badge badge-transport"><i class="fas fa-bus"></i> Transport</span>' : ''}
+                        </div>
+                        <button class="property-fav ${isSaved ? 'active' : ''}" onclick="toggleFavorite('${property.id}', event)">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="property-content">
+                        <div class="property-header">
+                            <div>
+                                <h3 class="property-title">${property.title}</h3>
+                                <div class="property-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>${property.location}</span>
+                                </div>
+                            </div>
+                            <div class="property-price">${property.price}<span> ZMW</span></div>
+                        </div>
+                        
+                        <div class="property-amenities">
+                            ${property.amenities.slice(0, 3).map(amenity => `
+                                <div class="amenity">
+                                    <i class="fas fa-check"></i>
+                                    <span>${amenity}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        
+                        <div class="property-footer">
+                            <button class="btn-outline" onclick="viewProperty('${property.id}')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            <button class="btn-solid" onclick="viewProperty('${property.id}')">
+                                <i class="fas fa-calendar-check"></i> Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function loadDashboard() {
+            if (!currentUser) return;
+            
+            // Update saved count
+            document.getElementById('saved-count').textContent = savedProperties.length;
+            
+            // Load featured properties
+            const featuredContainer = document.getElementById('featured-properties');
+            const featured = properties.filter(p => p.featured);
+            featuredContainer.innerHTML = featured.map(createPropertyCard).join('');
+            
+            // Load AI recommendations
+            const aiContainer = document.getElementById('ai-recommendations');
+            const recommendations = properties.filter(p => p.aiRecommended);
+            aiContainer.innerHTML = recommendations.map(createPropertyCard).join('');
+        }
+        
+        function loadAllProperties() {
+            const container = document.getElementById('all-properties');
+            container.innerHTML = properties.map(createPropertyCard).join('');
+        }
+        
+        function viewProperty(propertyId) {
+            currentPropertyId = propertyId;
+            showScreen('property');
+        }
+        
+        function loadPropertyDetail(propertyId) {
+            const property = properties.find(p => p.id === propertyId);
+            if (!property) return;
+            
+            // Update property details
+            document.getElementById('property-title').textContent = property.title;
+            document.getElementById('property-location').textContent = property.location;
+            document.getElementById('property-type').textContent = property.type;
+            document.getElementById('property-description').textContent = property.description;
+            document.getElementById('property-price').textContent = `${property.price} ZMW`;
+            
+            // Update main image
+            document.getElementById('property-main-image').style.backgroundImage = `url('${property.image}')`;
+            
+            // Update favorite button
+            const isSaved = savedProperties.includes(propertyId);
+            const favBtn = document.getElementById('property-fav-btn');
+            favBtn.innerHTML = isSaved ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+            
+            // Load amenities
+            const amenitiesContainer = document.getElementById('property-amenities');
+            amenitiesContainer.innerHTML = property.amenities.map(amenity => `
+                <div class="amenity-item">
+                    <div class="amenity-icon">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div>${amenity}</div>
+                </div>
+            `).join('');
+            
+            // Load transport options
+            const transportContainer = document.getElementById('transport-options');
+            if (property.transportAvailable) {
+                transportContainer.innerHTML = `
+                    <div class="transport-option">
+                        <div class="transport-info">
+                            <h5>Campus Shuttle Direct</h5>
+                            <p>Daily shuttle to UNZA main campus</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--secondary);">100 ZMW</div>
+                            <div style="font-size: 12px; color: var(--text-light);">/month</div>
+                        </div>
+                    </div>
+                    <div class="transport-option">
+                        <div class="transport-info">
+                            <h5>Public Transport Pass</h5>
+                            <p>Monthly public transport pass</p>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: 700; color: var(--secondary);">150 ZMW</div>
+                            <div style="font-size: 12px; color: var(--text-light);">/month</div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // Update booking bar price
+            const bookingPrice = document.querySelector('.booking-bar .price');
+            if (property.bundlePrice) {
+                bookingPrice.textContent = `${property.bundlePrice} ZMW`;
+            }
+        }
+        
+        function toggleFavorite(propertyId, event) {
+            if (event) event.stopPropagation();
+            
+            const index = savedProperties.indexOf(propertyId);
+            if (index === -1) {
+                savedProperties.push(propertyId);
+                showToast('Added to saved properties', 'success');
+            } else {
+                savedProperties.splice(index, 1);
+                showToast('Removed from saved properties', 'warning');
+            }
+            
+            // Update UI
+            if (currentScreen === 'property') {
+                const favBtn = document.getElementById('property-fav-btn');
+                const isSaved = savedProperties.includes(propertyId);
+                favBtn.innerHTML = isSaved ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+            }
+            
+            // Update saved count
+            document.getElementById('saved-count').textContent = savedProperties.length;
+            if (document.getElementById('profile-saved-count')) {
+                document.getElementById('profile-saved-count').textContent = savedProperties.length;
+            }
+            
+            // Reload saved screen if active
+            if (currentScreen === 'saved') {
+                loadSavedProperties();
+            }
+        }
+        
+        function loadSavedProperties() {
+            const container = document.getElementById('saved-properties');
+            const noSavedMessage = document.getElementById('no-saved-message');
+            
+            if (savedProperties.length === 0) {
+                container.classList.add('hidden');
+                noSavedMessage.classList.remove('hidden');
+            } else {
+                container.classList.remove('hidden');
+                noSavedMessage.classList.add('hidden');
+                
+                const saved = properties.filter(p => savedProperties.includes(p.id));
+                container.innerHTML = saved.map(createPropertyCard).join('');
+            }
+        }
+        
+        // ===== PROFILE FUNCTIONS =====
+        function loadProfile() {
+            if (!currentUser) return;
+            
+            document.getElementById('profile-name').textContent = currentUser.name;
+            document.getElementById('profile-type').textContent = currentUser.type.charAt(0).toUpperCase() + currentUser.type.slice(1);
+            document.getElementById('profile-phone').textContent = currentUser.phone;
+            document.getElementById('profile-institution').textContent = currentUser.institution;
+            document.getElementById('profile-budget').textContent = currentUser.budget;
+            document.getElementById('profile-saved-count').textContent = savedProperties.length;
+            
+            // Update avatar initials
+            const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase();
+            document.getElementById('profile-avatar').textContent = initials;
+        }
+        
+        // ===== BOOKING FUNCTIONS =====
+        function showBookingModal() {
+            if (!currentUser) {
+                showToast('Please login to book a property', 'warning');
+                showScreen('login');
+                return;
+            }
+            
+            const property = properties.find(p => p.id === currentPropertyId);
+            if (!property) return;
+            
+            // Update modal content
+            document.getElementById('booking-property-title').textContent = property.title;
+            document.getElementById('booking-property-location').textContent = property.location;
+            document.getElementById('booking-package').textContent = 'Housing + Transport Bundle';
+            document.getElementById('booking-duration').textContent = '6 months';
+            document.getElementById('booking-move-in').textContent = '15 Nov 2023';
+            
+            const totalPrice = property.bundlePrice ? property.bundlePrice * 6 : property.price * 6;
+            document.getElementById('booking-total').textContent = `${totalPrice.toLocaleString()} ZMW`;
+            
+            // Show modal
+            document.getElementById('booking-modal').classList.add('active');
+        }
+        
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.remove('active');
+        }
+        
+        function submitBooking() {
+            closeBookingModal();
+            showToast('Booking submitted! Owner will contact you shortly.', 'success');
+        }
+        
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize user type selection
+            selectUserType('student');
+            
+            // Load initial content
+            loadDashboard();
+            
+            // Show welcome message
+            setTimeout(() => {
+                showToast('Welcome to SAFENEST 2.0 - Premium Student Housing', 'success');
+            }, 1000);
+            
+            // Add touch effects
+            document.querySelectorAll('.btn, .property-card, .nav-item').forEach(el => {
+                el.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.98)';
+                });
+                
+                el.addEventListener('touchend', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
