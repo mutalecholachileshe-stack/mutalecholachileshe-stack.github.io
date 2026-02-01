@@ -2,626 +2,263 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SAFENEST | Safe Homes, Safe Community</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trustay | Monthly Living Without Fear</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ===== RESET & BASE STYLES ===== */
+        /* ===== TRUSTAY DESIGN SYSTEM ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
 
         :root {
-            /* New Warm, Trustworthy Color Palette */
-            --primary: #2A5C3D; /* Earthy green - Trust, Growth */
-            --primary-light: #3E7B52;
-            --primary-dark: #1E402C;
-            --secondary: #E67E22; /* Warm orange - Warmth, Energy */
-            --secondary-light: #F39C12;
-            --secondary-dark: #D35400;
-            --accent: #8E6C3A; /* Warm brown - Earthy, Reliable */
-            --accent-light: #A6804D;
-            
-            /* Neutral tones */
-            --warm-gray: #8C8C8C;
-            --warm-light: #FAF6F1; /* Warm off-white */
-            --warm-white: #FFFCF8;
-            --text-dark: #333333;
-            --text-medium: #666666;
-            --text-light: #999999;
-            
-            /* Soft backgrounds */
-            --bg-light: #F9F5F0;
-            --bg-white: var(--warm-white);
-            
-            /* Trust colors */
-            --trust-green: #27AE60; /* For verified badges */
-            --trust-blue: #3498DB; /* For escrow */
-            --trust-yellow: #F1C40F; /* For warnings */
+            /* Trustay Blue Palette */
+            --royal-blue: #0B1F3B;
+            --deep-blue: #102A44;
+            --accent-blue: #2563EB;
+            --trust-green: #10B981;
+            --soft-white: #FFFFFF;
+            --border-soft: rgba(11, 31, 59, 0.08);
+            --light-bg: #F8FAFC;
             
             /* Shadows */
-            --shadow-soft: 0 8px 30px rgba(42, 92, 61, 0.08);
-            --shadow-medium: 0 12px 40px rgba(42, 92, 61, 0.12);
-            --shadow-light: 0 4px 15px rgba(42, 92, 61, 0.05);
+            --shadow-soft: 0 8px 30px rgba(11, 31, 59, 0.08);
+            --shadow-medium: 0 15px 35px rgba(11, 31, 59, 0.12);
             
-            /* Border radius */
-            --radius-sm: 10px;
+            /* Spacing */
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 40px;
+            
+            /* Radius */
             --radius: 16px;
             --radius-lg: 24px;
-            --radius-xl: 32px;
-            --radius-round: 50%;
             
-            /* Transitions */
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            /* Font */
+            --font-body: 'Manrope', sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-light);
+            font-family: var(--font-body);
+            background: var(--soft-white);
+            color: var(--deep-blue);
+            overflow: hidden;
+        }
+
+        /* ===== TRUSTAY INTRO SCREENS ===== */
+        #brand-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--soft-white);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 1.5s ease forwards;
+            animation-delay: 1.5s;
+        }
+
+        #brand-intro h1 {
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--deep-blue);
+            margin-bottom: 8px;
+        }
+
+        #brand-intro p {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--deep-blue);
+            opacity: 0.6;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        #screen-hero {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1560448204-603b3fc33ddc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1800&q=80');
+            background-size: cover;
+            display: none;
+            flex-direction: column;
+            padding: var(--space-lg);
+        }
+
+        #screen-hero.active {
+            display: flex;
+        }
+
+        .hero-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero-headline {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: var(--space-md);
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: var(--space-lg);
             line-height: 1.6;
-            overflow-x: hidden;
-            height: 100vh;
-            position: relative;
+        }
+
+        .trust-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .glass-button {
+            padding: var(--space-md) var(--space-lg);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-soft);
+            backdrop-filter: blur(12px);
+            color: var(--deep-blue);
+            border-radius: var(--radius);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .glass-button:hover {
+            transform: translateY(-2px);
+            background: var(--soft-white);
+            box-shadow: var(--shadow-medium);
         }
 
         /* ===== APP CONTAINER ===== */
         #app {
+            display: none;
             width: 100%;
             height: 100vh;
             max-width: 480px;
             margin: 0 auto;
             position: relative;
             overflow: hidden;
+            background: var(--soft-white);
             box-shadow: var(--shadow-medium);
-            background: var(--bg-white);
-            border-radius: 0;
         }
 
-        /* ===== UTILITY CLASSES ===== */
-        .hidden {
-            display: none !important;
+        #app.active {
+            display: block;
         }
 
-        .warm-card {
-            background: var(--warm-white);
-            border: 1px solid rgba(142, 108, 58, 0.1);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-light);
-        }
-
-        .gradient-bg {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* ===== TRUST & SAFETY ELEMENTS ===== */
-        .trust-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(39, 174, 96, 0.1);
-            color: var(--trust-green);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-right: 8px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(39, 174, 96, 0.2);
-        }
-
-        .trust-badge.escrow {
-            background: rgba(52, 152, 219, 0.1);
-            color: var(--trust-blue);
-            border-color: rgba(52, 152, 219, 0.2);
-        }
-
-        .trust-badge.verified {
-            background: rgba(39, 174, 96, 0.1);
-            color: var(--trust-green);
-            border-color: rgba(39, 174, 96, 0.2);
-        }
-
-        .trust-badge.rating {
-            background: rgba(241, 196, 15, 0.1);
-            color: var(--trust-yellow);
-            border-color: rgba(241, 196, 15, 0.2);
-        }
-
-        /* ===== SCREENS ===== */
-        .screen {
+        /* ===== APP SCREENS ===== */
+        .app-screen {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+            background: var(--soft-white);
             overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            background: var(--bg-light);
+            display: none;
             padding-bottom: 80px;
         }
 
-        .screen.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            z-index: 10;
+        .app-screen.active {
+            display: block;
         }
 
-        .screen.exit-left {
-            transform: translateX(-20px);
-        }
-
-        .screen.exit-right {
-            transform: translateX(20px);
-        }
-
-        /* ===== WELCOME SCREEN - REDESIGNED ===== */
-        #welcome-screen {
-            background: linear-gradient(135deg, #F9F5F0 0%, #F0E6D6 100%);
-            display: flex;
-            flex-direction: column;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(42, 92, 61, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 70%, rgba(230, 126, 34, 0.05) 0%, transparent 50%);
-        }
-
-        .welcome-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 30px;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .welcome-logo {
-            margin-bottom: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .logo-circle {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: var(--radius-round);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-medium);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .logo-circle::before {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            background: var(--warm-white);
-            border-radius: 50%;
-            opacity: 0.2;
-        }
-
-        .logo-icon {
-            font-size: 48px;
-            color: var(--warm-white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            letter-spacing: -0.5px;
-            line-height: 1;
-        }
-
-        .logo-tagline {
-            font-size: 1.1rem;
-            color: var(--text-medium);
-            font-weight: 400;
-            margin-top: 8px;
-            max-width: 280px;
-            line-height: 1.4;
-        }
-
-        .welcome-message {
-            margin-bottom: 50px;
-            max-width: 320px;
-        }
-
-        .welcome-message h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            line-height: 1.2;
-        }
-
-        .welcome-message p {
-            color: var(--text-medium);
-            font-size: 1.1rem;
-        }
-
-        .welcome-features {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 50px;
-            max-width: 320px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--warm-white);
-            border-radius: var(--radius);
-            border-left: 4px solid var(--primary);
-            box-shadow: var(--shadow-light);
-            transition: var(--transition-smooth);
-        }
-
-        .feature-item:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .feature-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-        }
-
-        .feature-text h4 {
-            color: var(--primary);
-            margin-bottom: 4px;
-            font-weight: 600;
-        }
-
-        .feature-text p {
-            color: var(--text-medium);
-            font-size: 0.9rem;
-        }
-
-        .welcome-actions {
-            width: 100%;
-            max-width: 320px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 40px;
-        }
-
-        /* ===== BUTTONS - REDESIGNED ===== */
-        .btn {
-            padding: 18px 24px;
-            border-radius: var(--radius);
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition-bounce);
-            border: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-
-        .btn:focus:not(:active)::after {
-            animation: ripple 1s ease-out;
-        }
-
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(40, 40);
-                opacity: 0;
-            }
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(42, 92, 61, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(42, 92, 61, 0.3);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--primary);
-            border: 2px solid rgba(42, 92, 61, 0.1);
-            box-shadow: 0 4px 15px rgba(42, 92, 61, 0.1);
-        }
-
-        .btn-secondary:hover {
-            transform: translateY(-3px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 25px rgba(42, 92, 61, 0.15);
-        }
-
-        .btn-warm {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(230, 126, 34, 0.2);
-        }
-
-        .btn-warm:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(230, 126, 34, 0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: rgba(42, 92, 61, 0.05);
-            transform: translateY(-3px);
-        }
-
-        .btn-block {
-            width: 100%;
-        }
-
-        /* ===== APP HEADER - REDESIGNED ===== */
+        /* ===== APP HEADER ===== */
         .app-header {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 15px 20px;
-            background: var(--warm-white);
-            border-bottom: 1px solid rgba(142, 108, 58, 0.1);
+            padding: 20px;
+            background: var(--soft-white);
+            border-bottom: 1px solid var(--border-soft);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .header-left, .header-right {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .logo-small {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--deep-blue);
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: var(--accent-blue);
+            font-weight: 600;
+            letter-spacing: 1px;
         }
 
         .back-btn {
             width: 44px;
             height: 44px;
-            border-radius: var(--radius-round);
-            background: var(--warm-white);
-            border: 1px solid rgba(142, 108, 58, 0.1);
+            border-radius: 50%;
+            background: var(--soft-white);
+            border: 1px solid var(--border-soft);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--primary);
-            font-size: 18px;
+            color: var(--deep-blue);
             cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
         }
 
         .back-btn:hover {
-            background: rgba(42, 92, 61, 0.05);
-            transform: translateX(-2px);
+            background: var(--light-bg);
         }
 
-        .header-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .header-logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
-        }
-
-        .header-logo-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .header-action {
-            width: 44px;
-            height: 44px;
-            border-radius: var(--radius-round);
-            background: var(--warm-white);
-            border: 1px solid rgba(142, 108, 58, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 16px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .header-action:hover {
-            background: rgba(42, 92, 61, 0.05);
-            transform: translateY(-2px);
-        }
-
-        /* ===== BOTTOM NAVIGATION - REDESIGNED ===== */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 12px 20px;
-            background: var(--warm-white);
-            border-top: 1px solid rgba(142, 108, 58, 0.1);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            color: var(--text-light);
-            transition: var(--transition-smooth);
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            min-width: 70px;
-        }
-
-        .nav-item i {
-            font-size: 20px;
-            transition: var(--transition-smooth);
-        }
-
-        .nav-item span {
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .nav-item.active {
-            background: linear-gradient(135deg, rgba(42, 92, 61, 0.1) 0%, rgba(230, 126, 34, 0.1) 100%);
-            color: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .nav-item.active i {
-            color: var(--primary);
-        }
-
-        /* ===== DASHBOARD SCREEN ===== */
+        /* ===== DASHBOARD ===== */
         .dashboard-header {
-            padding: 30px 20px 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--deep-blue) 0%, var(--accent-blue) 100%);
             color: white;
-            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
-            margin-bottom: -20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dashboard-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+            padding: 40px 20px 20px;
+            border-radius: 0 0 var(--radius-lg) var(--radius-lg);
         }
 
         .greeting {
             margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
         }
 
         .greeting h2 {
             font-size: 1.8rem;
             margin-bottom: 8px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .greeting p {
-            opacity: 0.9;
-            font-size: 1rem;
         }
 
         .search-box {
-            background: var(--warm-white);
+            background: var(--soft-white);
             border-radius: var(--radius);
             padding: 16px;
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: var(--shadow-medium);
-            margin-top: 20px;
-            position: relative;
-            z-index: 2;
-            border: 1px solid rgba(142, 108, 58, 0.1);
         }
 
         .search-box input {
@@ -629,45 +266,12 @@
             border: none;
             outline: none;
             font-size: 16px;
-            color: var(--text-dark);
+            color: var(--deep-blue);
             background: transparent;
-        }
-
-        .search-box i {
-            color: var(--primary);
-            font-size: 18px;
         }
 
         .dashboard-content {
             padding: 20px;
-        }
-
-        .section-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-title h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            font-family: 'Playfair Display', serif;
-        }
-
-        .section-title a {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: var(--radius-sm);
-            transition: var(--transition-smooth);
-        }
-
-        .section-title a:hover {
-            background: rgba(42, 92, 61, 0.1);
         }
 
         .stats-grid {
@@ -678,45 +282,46 @@
         }
 
         .stat-card {
-            background: var(--warm-white);
+            background: var(--soft-white);
             border-radius: var(--radius);
             padding: 16px;
             text-align: center;
-            border: 1px solid rgba(142, 108, 58, 0.1);
-            box-shadow: var(--shadow-light);
-            transition: var(--transition-smooth);
-        }
-
-        .stat-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-soft);
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            color: white;
-            font-size: 16px;
+            border: 1px solid var(--border-soft);
         }
 
         .stat-value {
             font-size: 1.5rem;
             font-weight: 700;
+            color: var(--deep-blue);
             margin-bottom: 4px;
-            color: var(--primary);
         }
 
-        .stat-label {
+        /* ===== TRUST BADGES ===== */
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--trust-green);
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
-            color: var(--text-medium);
+            font-weight: 600;
         }
 
-        /* ===== PROPERTY CARD - REDESIGNED ===== */
+        .trust-badge.blue {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--accent-blue);
+        }
+
+        /* ===== PROPERTY CARD ===== */
         .properties-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -724,209 +329,66 @@
         }
 
         .property-card {
-            background: var(--warm-white);
-            border-radius: var(--radius-lg);
+            background: var(--soft-white);
+            border-radius: var(--radius);
             overflow: hidden;
-            border: 1px solid rgba(142, 108, 58, 0.1);
-            box-shadow: var(--shadow-light);
-            transition: var(--transition-smooth);
-            position: relative;
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
         .property-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
+            transform: translateY(-4px);
         }
 
         .property-image {
-            height: 200px;
+            height: 180px;
             width: 100%;
             background-size: cover;
             background-position: center;
             position: relative;
         }
 
-        .property-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
-        }
-
-        .property-badges {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            color: white;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .badge-type {
-            background: rgba(42, 92, 61, 0.9);
-        }
-
-        .badge-transport {
-            background: rgba(230, 126, 34, 0.9);
-        }
-
-        .badge-verified {
-            background: rgba(39, 174, 96, 0.9);
-        }
-
-        .property-fav {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 44px;
-            height: 44px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-round);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border: none;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .property-fav.active {
-            color: #E74C3C;
-            background: rgba(231, 76, 60, 0.1);
-        }
-
         .property-content {
             padding: 20px;
-        }
-
-        .property-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
         }
 
         .property-title {
             font-size: 1.2rem;
             font-weight: 600;
-            color: var(--primary);
-            margin-bottom: 6px;
-            line-height: 1.3;
-        }
-
-        .property-location {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 14px;
-            color: var(--text-medium);
+            color: var(--deep-blue);
+            margin-bottom: 8px;
         }
 
         .property-price {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--primary);
-            text-align: right;
+            color: var(--deep-blue);
         }
 
-        .property-price span {
-            font-size: 12px;
-            color: var(--text-medium);
-            font-weight: 400;
-            display: block;
-        }
-
-        .property-amenities {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 15px 0;
-            padding: 15px 0;
-            border-top: 1px solid rgba(142, 108, 58, 0.1);
-            border-bottom: 1px solid rgba(142, 108, 58, 0.1);
-        }
-
-        .amenity {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: var(--text-medium);
-            background: rgba(42, 92, 61, 0.05);
+        .transport-tag {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(37, 99, 235, 0.95);
+            color: white;
             padding: 6px 12px;
             border-radius: 20px;
-        }
-
-        .property-footer {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid var(--primary);
-            color: var(--primary);
-            padding: 12px 16px;
-            border-radius: var(--radius);
+            font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            flex: 1;
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
+            gap: 4px;
         }
 
-        .btn-outline:hover {
-            background: rgba(42, 92, 61, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .btn-solid {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            border: none;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .btn-solid:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(42, 92, 61, 0.2);
-        }
-
-        /* ===== FORM ELEMENTS ===== */
+        /* ===== FORM STYLES ===== */
         .form-section {
-            background: var(--warm-white);
+            background: var(--soft-white);
             border-radius: var(--radius);
             padding: 25px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(142, 108, 58, 0.1);
-            box-shadow: var(--shadow-light);
+            margin: 20px;
+            border: 1px solid var(--border-soft);
         }
 
         .form-group {
@@ -937,200 +399,275 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
-            color: var(--primary);
-            font-size: 14px;
+            color: var(--deep-blue);
         }
 
-        .form-input, .form-select, .form-textarea {
+        .form-input {
             width: 100%;
             padding: 16px;
-            border: 1.5px solid rgba(142, 108, 58, 0.1);
-            border-radius: var(--radius-sm);
+            border: 1.5px solid var(--border-soft);
+            border-radius: 12px;
             font-size: 16px;
-            font-family: 'Inter', sans-serif;
-            background: var(--warm-white);
-            transition: var(--transition-smooth);
-            color: var(--text-dark);
+            background: var(--soft-white);
+            transition: border-color 0.3s ease;
         }
 
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
+        .form-input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(42, 92, 61, 0.1);
+            border-color: var(--accent-blue);
         }
 
-        /* ===== DEMO BOX ===== */
-        .demo-box {
-            background: linear-gradient(135deg, rgba(42, 92, 61, 0.05) 0%, rgba(230, 126, 34, 0.05) 100%);
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 16px;
             border-radius: var(--radius);
-            padding: 25px;
-            text-align: center;
-            border: 1px solid rgba(42, 92, 61, 0.1);
-            margin-top: 20px;
-        }
-
-        .demo-box h3 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .demo-credentials {
-            background: var(--warm-white);
-            border-radius: var(--radius-sm);
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(142, 108, 58, 0.1);
-        }
-
-        .demo-field {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(142, 108, 58, 0.1);
-        }
-
-        .demo-field:last-child {
-            border-bottom: none;
-        }
-
-        /* ===== MODAL ===== */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+            font-weight: 600;
+            cursor: pointer;
             width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+            transition: background 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 2000;
-            padding: 20px;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease, visibility 0.3s;
+            gap: 10px;
         }
 
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
+        .btn-primary:hover {
+            background: #1d4ed8;
         }
 
-        .modal-content {
-            background: var(--warm-white);
-            border-radius: var(--radius-xl);
-            width: 100%;
-            max-width: 400px;
-            max-height: 80vh;
-            overflow-y: auto;
-            border: 1px solid rgba(142, 108, 58, 0.1);
-            box-shadow: var(--shadow-medium);
-            animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes modalSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* ===== TOAST ===== */
-        .toast {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            padding: 16px 24px;
+        .btn-secondary {
+            background: transparent;
+            color: var(--accent-blue);
+            border: 2px solid var(--accent-blue);
+            padding: 16px;
             border-radius: var(--radius);
-            box-shadow: var(--shadow-medium);
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        /* ===== TRANSPORT CARD ===== */
+        .transport-card {
+            background: var(--soft-white);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 15px 0;
             display: flex;
             align-items: center;
-            gap: 12px;
-            z-index: 2000;
-            opacity: 0;
-            transition: var(--transition-bounce);
-            max-width: 90%;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            gap: 15px;
         }
 
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+        .transport-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-blue), #3b82f6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
         }
 
-        .toast i {
-            font-size: 20px;
+        .transport-details h4 {
+            margin-bottom: 5px;
+            color: var(--deep-blue);
         }
 
-        /* ===== SCROLLBAR ===== */
-        .screen::-webkit-scrollbar {
-            width: 6px;
+        .transport-details p {
+            color: rgba(11, 31, 59, 0.6);
+            font-size: 14px;
         }
 
-        .screen::-webkit-scrollbar-track {
-            background: transparent;
+        /* ===== BOOKING FLOW ===== */
+        .booking-step {
+            display: none;
         }
 
-        .screen::-webkit-scrollbar-thumb {
-            background: rgba(42, 92, 61, 0.2);
-            border-radius: 3px;
+        .booking-step.active {
+            display: block;
         }
 
-        .screen::-webkit-scrollbar-thumb:hover {
-            background: rgba(42, 92, 61, 0.4);
+        .booking-summary {
+            background: var(--light-bg);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin: 20px 0;
         }
 
-        /* ===== RESPONSIVE ADJUSTMENTS ===== */
-        @media (max-height: 700px) {
-            .welcome-content {
-                padding: 30px 20px;
-            }
-            
-            .welcome-features {
-                margin-bottom: 30px;
-            }
-            
-            .welcome-actions {
-                margin-bottom: 30px;
-            }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-soft);
         }
 
+        .summary-item.total {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--deep-blue);
+            font-size: 1.2rem;
+            padding-top: 15px;
+        }
+
+        /* ===== OWNER DASHBOARD ===== */
+        .owner-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .owner-action-card {
+            background: var(--soft-white);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .owner-action-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* ===== EMPTY STATES ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(11, 31, 59, 0.6);
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--border-soft);
+        }
+
+        /* ===== BOTTOM NAV ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-width: 480px;
+            padding: 12px 20px;
+            background: var(--soft-white);
+            border-top: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: space-around;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: rgba(11, 31, 59, 0.4);
+            padding: 12px 16px;
+            font-size: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--accent-blue);
+        }
+
+        .nav-item i {
+            font-size: 1.2rem;
+            margin-bottom: 4px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 480px) {
-            #app {
-                border-radius: 0;
+            .hero-headline {
+                font-size: 36px;
             }
             
-            .logo-text {
-                font-size: 2.4rem;
+            .hero-description {
+                font-size: 16px;
             }
             
-            .welcome-message h1 {
-                font-size: 1.8rem;
+            #brand-intro h1 {
+                font-size: 42px;
             }
             
-            .property-image {
-                height: 180px;
+            .dashboard-header {
+                padding: 30px 20px 20px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Trustay Brand Intro -->
+    <div id="brand-intro">
+        <h1>TRUSTAY</h1>
+        <p>by StayLink Group</p>
+    </div>
+
+    <!-- Trustay Hero Screen -->
+    <div id="screen-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="trust-pill">
+                    <i class="fas fa-shield-check"></i>
+                    Verified Homes • Safe Transport • No Agent Fees
+                </div>
+                <h1 class="hero-headline">Monthly living, without fear.</h1>
+                <p class="hero-description">
+                    Trustay helps students, workers, and young couples find safe, clean, verified monthly homes — with optional transport included.
+                </p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="glass-button" id="get-started-btn">
+                        Get started
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="glass-button" onclick="showScreen('login')" style="background: rgba(255, 255, 255, 0.2); color: white;">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
     <div id="app">
         <!-- Bottom Navigation -->
-        <div class="bottom-nav hidden" id="bottom-nav-tenant">
+        <div class="bottom-nav" id="bottomNav" style="display: none;">
             <a href="#" class="nav-item active" onclick="showScreen('dashboard')">
                 <i class="fas fa-home"></i>
                 <span>Home</span>
+            </a>
+            <a href="#" class="nav-item" onclick="showScreen('transport')">
+                <i class="fas fa-bus"></i>
+                <span>Transport</span>
             </a>
             <a href="#" class="nav-item" onclick="showScreen('listings')">
                 <i class="fas fa-search"></i>
@@ -1146,618 +683,684 @@
             </a>
         </div>
 
-        <!-- Screen 1: Welcome -->
-        <div class="screen active" id="welcome-screen">
-            <div class="welcome-background"></div>
-            <div class="welcome-content">
-                <div class="welcome-logo">
-                    <div class="logo-circle">
-                        <i class="fas fa-home logo-icon"></i>
-                    </div>
-                    <div>
-                        <h1 class="logo-text">SAFENEST</h1>
-                        <p class="logo-tagline">Where students find home & community</p>
-                    </div>
-                </div>
-
-                <div class="welcome-message">
-                    <h1>Find Your Perfect Home</h1>
-                    <p>Verified monthly rentals with transport options. Safe, simple, and trusted by thousands of students.</p>
-                </div>
-
-                <div class="welcome-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Verified Homes</h4>
-                            <p>Every property is inspected and verified</p>
-                        </div>
-                    </div>
-
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-bus"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Easy Transport</h4>
-                            <p>Optional shuttle service to campus</p>
-                        </div>
-                    </div>
-
-                    <div class="feature-item">
-                        <div class="feature-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="feature-text">
-                            <h4>Trusted Community</h4>
-                            <p>Ratings, reviews, and verified tenants</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="welcome-actions">
-                    <button class="btn btn-primary btn-block" onclick="showScreen('register')">
-                        <i class="fas fa-user-plus"></i> Join Our Community
-                    </button>
-                    <button class="btn btn-secondary btn-block" onclick="showScreen('login')">
-                        <i class="fas fa-sign-in-alt"></i> Welcome Back
-                    </button>
-                </div>
-
-                <div class="demo-box">
-                    <h3>Try SAFENEST</h3>
-                    <p style="color: var(--text-medium); margin-bottom: 15px; font-size: 0.95rem;">Experience our platform with demo credentials</p>
-                    <div class="demo-credentials">
-                        <div class="demo-field">
-                            <span style="color: var(--text-medium);">Phone:</span>
-                            <strong style="color: var(--primary);">971234567</strong>
-                        </div>
-                        <div class="demo-field">
-                            <span style="color: var(--text-medium);">Password:</span>
-                            <strong style="color: var(--primary);">demo123</strong>
-                        </div>
-                    </div>
-                    <button class="btn btn-warm btn-block" onclick="quickDemoLogin('tenant')">
-                        <i class="fas fa-rocket"></i> Try as Tenant
-                    </button>
-                    <button class="btn btn-outline btn-block" onclick="quickDemoLogin('owner')" style="margin-top: 10px;">
-                        <i class="fas fa-building"></i> Try as Owner
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 2: Login -->
-        <div class="screen" id="login-screen">
+        <!-- Login Screen -->
+        <div class="app-screen" id="login-screen">
             <div class="app-header">
-                <div class="header-left">
-                    <button class="back-btn" onclick="showScreen('welcome')">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="header-logo">
-                        <div class="header-logo-icon">
-                            <i class="fas fa-sign-in-alt"></i>
-                        </div>
-                        <div class="header-logo-text">Login</div>
-                    </div>
+                <button class="back-btn" onclick="showScreen('hero')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div>
+                    <div class="logo-small">Trustay</div>
+                    <div class="logo-subtitle">MONTHLY LIVING WITHOUT FEAR</div>
                 </div>
+                <div style="width: 44px;"></div>
             </div>
 
-            <div class="dashboard-content">
-                <div class="form-section">
-                    <h3 style="margin-bottom: 25px; color: var(--primary); font-family: 'Playfair Display', serif;">Welcome Back</h3>
-                    
-                    <form id="login-form" onsubmit="login(event)">
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input" placeholder="260971234567" value="971234567" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-input" placeholder="Enter your password" value="demo123" required>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10px;">
-                            <i class="fas fa-sign-in-alt"></i> Login to SAFENEST
-                        </button>
-                    </form>
-
-                    <div class="demo-credentials" style="margin-top: 30px;">
-                        <div style="font-weight: 600; color: var(--primary); margin-bottom: 15px; font-size: 14px;">Demo Credentials:</div>
-                        <div class="demo-field">
-                            <span>Phone:</span>
-                            <strong>971234567</strong>
-                        </div>
-                        <div class="demo-field">
-                            <span>Password:</span>
-                            <strong>demo123</strong>
-                        </div>
+            <div class="form-section">
+                <h2 style="margin-bottom: 10px; color: var(--deep-blue);">Welcome Back</h2>
+                <p style="color: rgba(11, 31, 59, 0.6); margin-bottom: 25px;">Safe homes, trusted community</p>
+                <form onsubmit="login(event)">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" placeholder="260 97 123 4567" value="971234567" required>
                     </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 30px; color: var(--text-medium);">
-                    <p>Don't have an account? <a href="#" onclick="showScreen('register')" style="color: var(--primary); font-weight: 600;">Join our community</a></p>
-                    <p style="margin-top: 10px;">or <a href="#" onclick="showScreen('welcome')" style="color: var(--primary); font-weight: 600;">return home</a></p>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-input" placeholder="Enter password" value="demo123" required>
+                    </div>
+                    <div class="trust-badges" style="margin: 20px 0;">
+                        <span class="trust-badge">
+                            <i class="fas fa-shield-check"></i>
+                            Verified accounts only
+                        </span>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-sign-in-alt"></i> Login to Trustay
+                    </button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 30px; color: rgba(11, 31, 59, 0.6);">
+                    <p>Demo: Phone: 971234567 | Password: demo123</p>
+                    <p style="margin-top: 20px;">Don't have an account? <a href="#" onclick="showScreen('register')" style="color: var(--accent-blue); font-weight: 600;">Sign up free</a></p>
                 </div>
             </div>
         </div>
 
-        <!-- Screen 3: Register -->
-        <div class="screen" id="register-screen">
+        <!-- Register Screen -->
+        <div class="app-screen" id="register-screen">
             <div class="app-header">
-                <div class="header-left">
-                    <button class="back-btn" onclick="showScreen('welcome')">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="header-logo">
-                        <div class="header-logo-icon">
-                            <i class="fas fa-user-plus"></i>
-                        </div>
-                        <div class="header-logo-text">Join Us</div>
-                    </div>
+                <button class="back-btn" onclick="showScreen('hero')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div>
+                    <div class="logo-small">Trustay</div>
+                    <div class="logo-subtitle">JOIN TRUSTED COMMUNITY</div>
                 </div>
+                <div style="width: 44px;"></div>
             </div>
 
-            <div class="dashboard-content">
-                <div class="form-section">
-                    <h3 style="margin-bottom: 25px; color: var(--primary); font-family: 'Playfair Display', serif;">Join Our Community</h3>
-                    
-                    <form id="register-form" onsubmit="register(event)">
-                        <div class="form-group">
-                            <label class="form-label">I'm looking for:</label>
-                            <div style="display: flex; gap: 15px; margin-top: 10px;">
-                                <button type="button" class="btn btn-outline" style="flex: 1;" onclick="selectRole('tenant')" id="tenant-btn">
-                                    <i class="fas fa-user-graduate"></i> A Home
-                                </button>
-                                <button type="button" class="btn btn-outline" style="flex: 1;" onclick="selectRole('owner')" id="owner-btn">
-                                    <i class="fas fa-building"></i> Tenants
-                                </button>
-                            </div>
-                            <input type="hidden" id="user-role" value="tenant" required>
+            <div class="form-section">
+                <h2 style="margin-bottom: 10px; color: var(--deep-blue);">Join Trustay</h2>
+                <p style="color: rgba(11, 31, 59, 0.6); margin-bottom: 25px;">Create your free account</p>
+                <form onsubmit="register(event)">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" placeholder="John Banda" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" placeholder="260 97 123 4567" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address (Optional)</label>
+                        <input type="email" class="form-input" placeholder="john@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Create Password</label>
+                        <input type="password" class="form-input" placeholder="Create secure password" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">I'm a:</label>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button type="button" id="role-tenant" onclick="selectRole('tenant')" style="flex: 1; padding: 16px; border: 2px solid var(--accent-blue); border-radius: 12px; background: rgba(37, 99, 235, 0.1); color: var(--accent-blue); font-weight: 600; cursor: pointer;">
+                                <i class="fas fa-home"></i><br>
+                                Tenant
+                            </button>
+                            <button type="button" id="role-owner" onclick="selectRole('owner')" style="flex: 1; padding: 16px; border: 2px solid var(--border-soft); border-radius: 12px; background: transparent; color: var(--deep-blue); font-weight: 600; cursor: pointer;">
+                                <i class="fas fa-building"></i><br>
+                                Owner
+                            </button>
                         </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input" placeholder="John Banda" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" class="form-input" placeholder="260971234567" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" placeholder="john@example.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="form-label">Create Password</label>
-                            <input type="password" class="form-input" placeholder="Create a secure password" required>
-                        </div>
-
-                        <div id="tenant-fields">
-                            <div class="form-group">
-                                <label class="form-label">Institution/University</label>
-                                <input type="text" class="form-input" placeholder="University of Zambia">
-                            </div>
-                        </div>
-
-                        <div id="owner-fields" class="hidden">
-                            <div class="form-group">
-                                <label class="form-label">Property Owner Name</label>
-                                <input type="text" class="form-input" placeholder="Banda Properties Ltd">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label style="display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--text-medium);">
-                                <input type="checkbox" required style="margin-top: 3px;">
-                                <span>I agree to SAFENEST's <a href="#" style="color: var(--primary);">Terms of Service</a> and understand my data is protected</span>
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 20px;">
-                            <i class="fas fa-user-plus"></i> Create Account
-                        </button>
-                    </form>
-                </div>
-
-                <div style="text-align: center; margin-top: 30px; color: var(--text-medium);">
-                    <p>Already part of our community? <a href="#" onclick="showScreen('login')" style="color: var(--primary); font-weight: 600;">Login here</a></p>
+                    </div>
+                    <div class="trust-badges" style="margin: 20px 0;">
+                        <span class="trust-badge">
+                            <i class="fas fa-lock"></i>
+                            Secure & private
+                        </span>
+                        <span class="trust-badge">
+                            <i class="fas fa-ban"></i>
+                            No agent fees
+                        </span>
+                    </div>
+                    <button type="submit" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Create Account
+                    </button>
+                </form>
+                
+                <div style="text-align: center; margin-top: 30px; color: rgba(11, 31, 59, 0.6);">
+                    <p>Already have an account? <a href="#" onclick="showScreen('login')" style="color: var(--accent-blue); font-weight: 600;">Login</a></p>
                 </div>
             </div>
         </div>
 
-        <!-- Screen 4: Dashboard -->
-        <div class="screen" id="dashboard-screen">
+        <!-- Dashboard Screen -->
+        <div class="app-screen" id="dashboard-screen">
             <div class="dashboard-header">
                 <div class="greeting">
                     <h2 id="greeting-text">Good morning, John!</h2>
-                    <p>Ready to find your perfect home today?</p>
+                    <p>Ready to find your perfect home?</p>
                 </div>
-
                 <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search locations, properties..." onfocus="showScreen('listings')">
-                    <button class="header-action" onclick="showScreen('listings')">
-                        <i class="fas fa-filter"></i>
-                    </button>
+                    <i class="fas fa-search" style="color: var(--accent-blue);"></i>
+                    <input type="text" placeholder="Search Woodlands, Ridgeway, UNZA...">
                 </div>
             </div>
 
             <div class="dashboard-content">
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="stat-value">142</div>
+                        <div class="stat-value" id="verified-homes">142</div>
                         <div class="stat-label">Verified Homes</div>
                     </div>
-
                     <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);">
-                            <i class="fas fa-bus"></i>
-                        </div>
-                        <div class="stat-value">67</div>
+                        <div class="stat-value" id="transport-routes">67</div>
                         <div class="stat-label">Transport Routes</div>
                     </div>
-
                     <div class="stat-card">
-                        <div class="stat-icon" style="background: linear-gradient(135deg, #8E6C3A 0%, #A6804D 100%);">
-                            <i class="fas fa-heart"></i>
-                        </div>
                         <div class="stat-value" id="saved-count">5</div>
                         <div class="stat-label">Saved</div>
                     </div>
                 </div>
 
-                <div class="section-title">
-                    <h3>Featured Homes</h3>
-                    <a href="#" onclick="showScreen('listings')">View all</a>
+                <!-- Trustay Guarantee -->
+                <div style="background: linear-gradient(135deg, var(--deep-blue), var(--accent-blue)); color: white; border-radius: var(--radius); padding: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-shield-check"></i>
+                        Trustay Guarantee
+                    </h3>
+                    <p style="opacity: 0.9; font-size: 14px;">
+                        • Verified homeowners & properties<br>
+                        • No hidden agent fees<br>
+                        • Safe, clean homes only<br>
+                        • 24/7 customer support
+                    </p>
                 </div>
 
+                <h3 style="margin-bottom: 20px; color: var(--deep-blue); display: flex; justify-content: space-between; align-items: center;">
+                    <span>Featured Homes</span>
+                    <a href="#" onclick="showScreen('listings')" style="color: var(--accent-blue); font-size: 14px; text-decoration: none;">
+                        See all <i class="fas fa-arrow-right"></i>
+                    </a>
+                </h3>
                 <div class="properties-grid" id="featured-properties">
-                    <!-- Featured properties will load here -->
-                </div>
-
-                <div class="section-title" style="margin-top: 30px;">
-                    <h3>With Transport Options</h3>
-                    <a href="#" onclick="showScreen('listings')">See all</a>
-                </div>
-
-                <div class="properties-grid" id="transport-properties">
-                    <!-- Transport properties will load here -->
+                    <!-- Properties loaded via JS -->
                 </div>
             </div>
         </div>
 
-        <!-- Screen 5: Property Listings -->
-        <div class="screen" id="listings-screen">
+        <!-- Owner Dashboard Screen -->
+        <div class="app-screen" id="owner-dashboard-screen">
             <div class="app-header">
-                <div class="header-left">
-                    <button class="back-btn" onclick="showScreen('dashboard')">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="header-logo">
-                        <div class="header-logo-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <div class="header-logo-text">Browse Homes</div>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <button class="header-action" onclick="toggleFilters()">
-                        <i class="fas fa-filter"></i>
-                    </button>
-                    <button class="header-action">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </button>
-                </div>
+                <button class="back-btn" onclick="showScreen('dashboard')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Owner Dashboard</div>
+                <button class="back-btn" onclick="showOwnerAddProperty()">
+                    <i class="fas fa-plus"></i>
+                </button>
             </div>
 
             <div class="dashboard-content">
-                <div class="search-box" style="margin: 0 20px 20px;">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search Woodlands, Ridgeway, Kabulonga...">
+                <div style="background: linear-gradient(135deg, var(--trust-green), #34d399); color: white; border-radius: var(--radius); padding: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 10px;">Welcome back, Owner!</h3>
+                    <p style="opacity: 0.9;">Manage your properties and bookings</p>
                 </div>
 
-                <div id="filters" class="form-section hidden" style="margin: 0 20px 20px;">
-                    <h4 style="margin-bottom: 15px; color: var(--primary); font-family: 'Playfair Display', serif;">Filter Homes</h4>
-                    <div class="form-group">
-                        <label class="form-label">Price Range (ZMW)</label>
-                        <div style="display: flex; gap: 10px;">
-                            <input type="number" class="form-input" placeholder="Min" style="flex: 1;">
-                            <input type="number" class="form-input" placeholder="Max" style="flex: 1;">
-                        </div>
+                <div class="owner-actions">
+                    <div class="owner-action-card" onclick="showOwnerAddProperty()">
+                        <i class="fas fa-plus-circle" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 10px;"></i>
+                        <h4>List Property</h4>
+                        <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">Add new home</p>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label">Property Type</label>
-                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-                            <span class="btn-outline" style="padding: 8px 16px; font-size: 14px; cursor: pointer;">Studio</span>
-                            <span class="btn-outline" style="padding: 8px 16px; font-size: 14px; cursor: pointer; background: rgba(42, 92, 61, 0.1); color: var(--primary); border-color: var(--primary);">Bedsitter</span>
-                            <span class="btn-outline" style="padding: 8px 16px; font-size: 14px; cursor: pointer;">1 Bedroom</span>
-                            <span class="btn-outline" style="padding: 8px 16px; font-size: 14px; cursor: pointer;">Shared</span>
-                        </div>
+                    <div class="owner-action-card" onclick="showOwnerProperties()">
+                        <i class="fas fa-home" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 10px;"></i>
+                        <h4>My Properties</h4>
+                        <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">3 listings</p>
                     </div>
-                    <div class="form-group">
-                        <label class="form-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" checked style="transform: scale(1.2);">
-                            <span>Transport Available</span>
-                        </label>
-                        <label class="form-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" checked style="transform: scale(1.2);">
-                            <span>Verified Homes Only</span>
-                        </label>
+                    <div class="owner-action-card" onclick="showOwnerBookings()">
+                        <i class="fas fa-calendar-check" style="font-size: 2rem; color: var(--accent-blue); margin-bottom: 10px;"></i>
+                        <h4>Bookings</h4>
+                        <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">5 requests</p>
                     </div>
-                    <button class="btn btn-primary btn-block" onclick="toggleFilters()">
-                        Apply Filters
-                    </button>
+                    <div class="owner-action-card" onclick="showOwnerVerification()">
+                        <i class="fas fa-badge-check" style="font-size: 2rem; color: var(--trust-green); margin-bottom: 10px;"></i>
+                        <h4>Verification</h4>
+                        <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">Trustay Verified</p>
+                    </div>
                 </div>
 
-                <div class="properties-grid" id="all-properties" style="padding: 0 20px 100px;">
-                    <!-- All properties will load here -->
+                <h3 style="margin: 30px 0 20px; color: var(--deep-blue);">Recent Bookings</h3>
+                <div id="owner-bookings-list">
+                    <!-- Bookings loaded via JS -->
                 </div>
             </div>
         </div>
 
-        <!-- Screen 6: Property Detail -->
-        <div class="screen" id="property-screen">
-            <div class="property-detail">
-                <div class="app-header">
-                    <div class="header-left">
-                        <button class="back-btn" onclick="goBackToListings()">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                    </div>
-                    <div class="header-right">
-                        <button class="header-action" id="property-fav-btn" onclick="toggleFavorite(currentPropertyId)">
-                            <i class="far fa-heart"></i>
-                        </button>
-                        <button class="header-action">
-                            <i class="fas fa-share-alt"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="property-image" id="property-main-image" style="background-image: url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-                    <div class="property-overlay"></div>
-                    <div class="property-badges">
-                        <span class="badge badge-type">Bedsitter</span>
-                        <span class="badge badge-transport"><i class="fas fa-bus"></i> Transport</span>
-                        <span class="badge badge-verified"><i class="fas fa-check"></i> Verified</span>
-                    </div>
-                    <button class="property-fav" id="detail-fav-btn" onclick="toggleFavorite(currentPropertyId)">
-                        <i class="far fa-heart"></i>
-                    </button>
-                </div>
-
-                <div class="property-detail-content">
-                    <div style="padding: 20px;">
-                        <div class="property-header">
-                            <div>
-                                <h2 class="property-title" id="property-title">Modern Bedsitter near UNZA</h2>
-                                <div class="property-location" style="margin-bottom: 10px;">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span id="property-location">Woodlands, Lusaka</span>
-                                </div>
-                                <div>
-                                    <span class="trust-badge verified"><i class="fas fa-badge-check"></i> Verified Owner</span>
-                                    <span class="trust-badge escrow"><i class="fas fa-lock"></i> Escrow Protected</span>
-                                    <span class="trust-badge rating"><i class="fas fa-star"></i> 4.8 Rating</span>
-                                </div>
-                            </div>
-                            <div class="property-price" id="property-price">850<span>ZMW / month</span></div>
-                        </div>
-
-                        <div style="margin: 20px 0; padding: 20px 0; border-top: 1px solid rgba(142, 108, 58, 0.1); border-bottom: 1px solid rgba(142, 108, 58, 0.1);">
-                            <h4 style="margin-bottom: 15px; color: var(--primary); font-family: 'Playfair Display', serif;">About This Home</h4>
-                            <p id="property-description" style="color: var(--text-medium); line-height: 1.6;">
-                                A spacious, well-lit bedsitter perfect for students. Recently renovated with modern finishes, 24/7 security, and reliable water supply. Located just 10 minutes from UNZA main campus.
-                            </p>
-                        </div>
-
-                        <div style="margin-bottom: 25px;">
-                            <h4 style="margin-bottom: 15px; color: var(--primary); font-family: 'Playfair Display', serif;">Amenities</h4>
-                            <div class="property-amenities" id="property-amenities" style="padding: 0; border: none; margin: 0;">
-                                <!-- Amenities will load here -->
-                            </div>
-                        </div>
-
-                        <div class="form-section" style="margin: 0;">
-                            <h4 style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; color: var(--primary); font-family: 'Playfair Display', serif;">
-                                <i class="fas fa-bus"></i> Transport Options
-                            </h4>
-                            <p style="color: var(--text-medium); margin-bottom: 20px; font-size: 0.95rem;">Choose from reliable transport services:</p>
-                            <div id="transport-options">
-                                <!-- Transport options will load here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="position: fixed; bottom: 80px; left: 0; width: 100%; max-width: 480px; padding: 20px; background: var(--warm-white); border-top: 1px solid rgba(142, 108, 58, 0.1); z-index: 900;">
-                    <div style="display: flex; gap: 15px; align-items: center;">
-                        <div style="flex: 1;">
-                            <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary);">950 ZMW</div>
-                            <div style="font-size: 12px; color: var(--text-medium);">/month with transport bundle</div>
-                        </div>
-                        <button class="btn btn-primary" style="flex: 1; padding: 16px;" onclick="showBookingModal()">
-                            <i class="fas fa-calendar-check"></i> Book Now
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Screen 7: Saved Properties -->
-        <div class="screen" id="saved-screen">
+        <!-- Add Property Screen -->
+        <div class="app-screen" id="owner-add-property-screen">
             <div class="app-header">
-                <div class="header-left">
-                    <button class="back-btn" onclick="showScreen('dashboard')">
-                        <i class="fas fa-arrow-left"></i>
-                    </button>
-                    <div class="header-logo">
-                        <div class="header-logo-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        <div class="header-logo-text">Saved Homes</div>
-                    </div>
-                </div>
-                <div class="header-right">
-                    <button class="header-action" onclick="showScreen('listings')">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
+                <button class="back-btn" onclick="showScreen('owner-dashboard')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">List Property</div>
+                <div style="width: 44px;"></div>
             </div>
 
-            <div class="dashboard-content">
-                <div class="properties-grid" id="saved-properties" style="padding: 20px 20px 100px;">
-                    <!-- Saved properties will load here -->
+            <div class="form-section">
+                <h3 style="margin-bottom: 10px; color: var(--deep-blue);">List Your Property</h3>
+                <p style="color: rgba(11, 31, 59, 0.6); margin-bottom: 25px;">Reach thousands of trusted tenants</p>
+                
+                <div class="form-group">
+                    <label class="form-label">Property Type</label>
+                    <select class="form-input">
+                        <option>Bedsitter</option>
+                        <option>1 Bedroom</option>
+                        <option>2 Bedrooms</option>
+                        <option>Shared Room</option>
+                    </select>
                 </div>
-
-                <div id="no-saved-message" class="hidden" style="text-align: center; padding: 60px 20px;">
-                    <div style="font-size: 4rem; color: rgba(42, 92, 61, 0.1); margin-bottom: 20px;">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3 style="margin-bottom: 10px; color: var(--primary); font-family: 'Playfair Display', serif;">No Saved Homes Yet</h3>
-                    <p style="color: var(--text-medium); margin-bottom: 30px;">Browse homes and tap the heart icon to save them here.</p>
-                    <button class="btn btn-primary" onclick="showScreen('listings')">
-                        <i class="fas fa-search"></i> Explore Homes
-                    </button>
+                
+                <div class="form-group">
+                    <label class="form-label">Location (Area/Compound)</label>
+                    <input type="text" class="form-input" placeholder="e.g., Woodlands, Lusaka">
                 </div>
-            </div>
-        </div>
-
-        <!-- Screen 8: Profile -->
-        <div class="screen" id="profile-screen">
-            <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); padding: 40px 20px; color: white; border-radius: 0 0 var(--radius-xl) var(--radius-xl);">
-                <div style="display: flex; align-items: center; gap: 20px;">
-                    <div style="width: 80px; height: 80px; border-radius: var(--radius-round); background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 600;">
-                        JB
-                    </div>
-                    <div>
-                        <h2 id="profile-name" style="font-size: 1.8rem; margin-bottom: 5px;">John Banda</h2>
-                        <span id="profile-type" style="display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 6px 16px; border-radius: 20px; font-size: 14px;">Student</span>
-                    </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Monthly Rent (ZMW)</label>
+                    <input type="number" class="form-input" placeholder="850">
                 </div>
-            </div>
-
-            <div class="dashboard-content">
-                <div class="form-section">
-                    <h3 style="margin-bottom: 20px; color: var(--primary); font-family: 'Playfair Display', serif;">Account Information</h3>
-                    <div class="demo-field">
-                        <span class="info-label" style="color: var(--text-medium);">Phone</span>
-                        <span class="info-value" id="profile-phone" style="font-weight: 600; color: var(--primary);">971234567</span>
-                    </div>
-                    <div class="demo-field">
-                        <span class="info-label" style="color: var(--text-medium);">Institution</span>
-                        <span class="info-value" id="profile-institution" style="font-weight: 600; color: var(--primary);">UNZA</span>
-                    </div>
-                    <div class="demo-field">
-                        <span class="info-label" style="color: var(--text-medium);">Budget Range</span>
-                        <span class="info-value" id="profile-budget" style="font-weight: 600; color: var(--primary);">800-1200 ZMW</span>
-                    </div>
-                    <div class="demo-field" style="border-bottom: none;">
-                        <span class="info-label" style="color: var(--text-medium);">Member since</span>
-                        <span class="info-value" style="font-weight: 600; color: var(--primary);">Oct 2023</span>
+                
+                <div class="form-group">
+                    <label class="form-label">Property Description</label>
+                    <textarea class="form-input" rows="4" placeholder="Describe your property..."></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Add Transport Option (Optional)</label>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button type="button" onclick="toggleTransportOption(true)" style="flex: 1; padding: 12px; border: 2px solid var(--trust-green); border-radius: 12px; background: rgba(16, 185, 129, 0.1); color: var(--trust-green); font-weight: 600; cursor: pointer;">
+                            <i class="fas fa-check"></i> Include Transport
+                        </button>
+                        <button type="button" onclick="toggleTransportOption(false)" style="flex: 1; padding: 12px; border: 2px solid var(--border-soft); border-radius: 12px; background: transparent; color: var(--deep-blue); font-weight: 600; cursor: pointer;">
+                            No Transport
+                        </button>
                     </div>
                 </div>
-
-                <div class="form-section">
-                    <h3 style="margin-bottom: 20px; color: var(--primary); font-family: 'Playfair Display', serif;">My Activity</h3>
-                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
-                        <div style="text-align: center; padding: 20px; background: rgba(42, 92, 61, 0.05); border-radius: var(--radius);">
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">24</div>
-                            <div style="font-size: 12px; color: var(--text-medium);">Homes Viewed</div>
-                        </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(230, 126, 34, 0.05); border-radius: var(--radius);">
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary);" id="profile-saved-count">5</div>
-                            <div style="font-size: 12px; color: var(--text-medium);">Saved</div>
-                        </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(142, 108, 58, 0.05); border-radius: var(--radius);">
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">3</div>
-                            <div style="font-size: 12px; color: var(--text-medium);">Contacts</div>
-                        </div>
-                        <div style="text-align: center; padding: 20px; background: rgba(39, 174, 96, 0.05); border-radius: var(--radius);">
-                            <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">1</div>
-                            <div style="font-size: 12px; color: var(--text-medium);">Bookings</div>
-                        </div>
-                    </div>
+                
+                <div class="trust-badges" style="margin: 20px 0;">
+                    <span class="trust-badge">
+                        <i class="fas fa-star"></i>
+                        Free listing
+                    </span>
+                    <span class="trust-badge">
+                        <i class="fas fa-user-check"></i>
+                        Verified owners only
+                    </span>
                 </div>
-
-                <button class="btn btn-secondary btn-block" style="margin-top: 30px;" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                
+                <button class="btn-primary" onclick="submitProperty()">
+                    <i class="fas fa-home"></i> List Property
                 </button>
             </div>
         </div>
 
-        <!-- Booking Modal -->
-        <div class="modal" id="booking-modal">
-            <div class="modal-content">
-                <div class="modal-header" style="padding: 24px 24px 16px; border-bottom: 1px solid rgba(142, 108, 58, 0.1); display: flex; justify-content: space-between; align-items: center;">
-                    <h3 style="color: var(--primary); font-family: 'Playfair Display', serif;">Complete Your Booking</h3>
-                    <button class="modal-close" onclick="closeBookingModal()" style="background: none; border: none; font-size: 24px; color: var(--text-medium); cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%;">&times;</button>
+        <!-- Transport Screen -->
+        <div class="app-screen" id="transport-screen">
+            <div class="app-header">
+                <button class="back-btn" onclick="showScreen('dashboard')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Trustay Transport</div>
+                <div style="width: 44px;"></div>
+            </div>
+
+            <div class="dashboard-content">
+                <div style="background: linear-gradient(135deg, var(--accent-blue), #3b82f6); color: white; border-radius: var(--radius); padding: 20px; margin-bottom: 30px;">
+                    <h3 style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-bus"></i>
+                        Safe Monthly Transport
+                    </h3>
+                    <p style="opacity: 0.9; font-size: 14px;">
+                        Reliable routes to universities, colleges, and workplaces
+                    </p>
                 </div>
 
-                <div class="modal-body" style="padding: 24px;">
-                    <div style="text-align: center; margin-bottom: 24px;">
-                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; margin: 0 auto 16px;">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <h4 id="booking-property-title" style="color: var(--primary); margin-bottom: 8px;">Modern Bedsitter</h4>
-                        <p id="booking-property-location" style="color: var(--text-medium); font-size: 14px;">Woodlands, Lusaka</p>
+                <h3 style="margin-bottom: 15px; color: var(--deep-blue);">Available Routes</h3>
+                
+                <div class="transport-card" onclick="selectTransport('unza')">
+                    <div class="transport-icon">
+                        <i class="fas fa-university"></i>
                     </div>
-
-                    <div style="background: linear-gradient(135deg, rgba(42, 92, 61, 0.05) 0%, rgba(230, 126, 34, 0.05) 100%); padding: 20px; border-radius: var(--radius); margin-bottom: 24px; border: 1px solid rgba(42, 92, 61, 0.1);">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                            <span style="color: var(--text-medium);">Package</span>
-                            <span style="font-weight: 600; color: var(--primary);" id="booking-package">Housing + Transport</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                            <span style="color: var(--text-medium);">Duration</span>
-                            <span style="font-weight: 600; color: var(--primary);" id="booking-duration">6 months</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
-                            <span style="color: var(--text-medium);">Move-in</span>
-                            <span style="font-weight: 600; color: var(--primary);" id="booking-move-in">15 Nov 2023</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 1px solid rgba(42, 92, 61, 0.1);">
-                            <span style="color: var(--text-medium); font-weight: 600;">Total</span>
-                            <span style="font-size: 1.5rem; font-weight: 800; color: var(--primary);" id="booking-total">5,700 ZMW</span>
+                    <div class="transport-details">
+                        <h4>Woodlands → UNZA</h4>
+                        <p>Morning & Evening • 150 ZMW/month</p>
+                        <div class="trust-badges" style="margin-top: 8px;">
+                            <span class="trust-badge blue" style="font-size: 11px;">
+                                <i class="fas fa-clock"></i> 7:00 AM, 5:00 PM
+                            </span>
                         </div>
                     </div>
+                </div>
 
+                <div class="transport-card" onclick="selectTransport('cbu')">
+                    <div class="transport-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="transport-details">
+                        <h4>Ridgeway → CBU</h4>
+                        <p>Direct route • 200 ZMW/month</p>
+                        <div class="trust-badges" style="margin-top: 8px;">
+                            <span class="trust-badge blue" style="font-size: 11px;">
+                                <i class="fas fa-clock"></i> 7:30 AM, 5:30 PM
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transport-card" onclick="selectTransport('town')">
+                    <div class="transport-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="transport-details">
+                        <h4>Various → Town Area</h4>
+                        <p>Multiple pickups • 180 ZMW/month</p>
+                        <div class="trust-badges" style="margin-top: 8px;">
+                            <span class="trust-badge blue" style="font-size: 11px;">
+                                <i class="fas fa-clock"></i> Flexible times
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px; padding: 20px; background: var(--light-bg); border-radius: var(--radius);">
+                    <h4 style="margin-bottom: 10px; color: var(--deep-blue);">
+                        <i class="fas fa-info-circle" style="color: var(--accent-blue);"></i>
+                        How Trustay Transport Works
+                    </h4>
+                    <ul style="color: rgba(11, 31, 59, 0.7); padding-left: 20px; font-size: 14px;">
+                        <li>Monthly subscription service</li>
+                        <li>Safe, verified drivers only</li>
+                        <li>Book with property or separately</li>
+                        <li>Cancel anytime</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Listings Screen -->
+        <div class="app-screen" id="listings-screen">
+            <div class="app-header">
+                <button class="back-btn" onclick="showScreen('dashboard')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Browse Homes</div>
+                <button class="back-btn" onclick="toggleFilters()">
+                    <i class="fas fa-filter"></i>
+                </button>
+            </div>
+
+            <div class="dashboard-content">
+                <!-- Filters (hidden by default) -->
+                <div id="filters-panel" style="display: none; background: var(--light-bg); padding: 20px; border-radius: var(--radius); margin-bottom: 20px;">
+                    <h4 style="margin-bottom: 15px; color: var(--deep-blue);">Filter Homes</h4>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <button class="btn-secondary" style="padding: 10px; font-size: 14px;">Bedsitter</button>
+                        <button class="btn-secondary" style="padding: 10px; font-size: 14px;">1 Bedroom</button>
+                        <button class="btn-secondary" style="padding: 10px; font-size: 14px;">With Transport</button>
+                        <button class="btn-secondary" style="padding: 10px; font-size: 14px;">Verified Only</button>
+                    </div>
+                </div>
+
+                <div class="properties-grid" id="all-properties">
+                    <!-- All properties loaded via JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Detail Screen -->
+        <div class="app-screen" id="property-screen">
+            <div class="app-header">
+                <button class="back-btn" onclick="showScreen('listings')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Property Details</div>
+                <button class="back-btn" onclick="toggleSaveProperty()">
+                    <i class="far fa-heart" id="save-icon"></i>
+                </button>
+            </div>
+
+            <div id="property-image" style="height: 250px; background: linear-gradient(135deg, var(--deep-blue), var(--accent-blue)); position: relative;">
+                <div class="transport-tag" id="property-transport-tag" style="display: none;">
+                    <i class="fas fa-bus"></i> Transport Available
+                </div>
+            </div>
+            
+            <div style="padding: 20px;">
+                <h2 id="property-title" style="margin-bottom: 10px; color: var(--deep-blue);">Modern Bedsitter near UNZA</h2>
+                <p id="property-location" style="color: rgba(11, 31, 59, 0.6); margin-bottom: 15px;">
+                    <i class="fas fa-map-marker-alt"></i> Woodlands, Lusaka
+                </p>
+                
+                <div class="trust-badges" id="property-badges">
+                    <!-- Trust badges loaded via JS -->
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div class="property-price" style="font-size: 1.8rem; font-weight: 800; color: var(--deep-blue); margin-bottom: 5px;">
+                        850 ZMW/month
+                    </div>
+                    <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">No agent fees • Monthly contract</p>
+                </div>
+                
+                <div style="background: var(--light-bg); border-radius: var(--radius); padding: 20px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 10px; color: var(--deep-blue);">Description</h4>
+                    <p id="property-description" style="color: rgba(11, 31, 59, 0.7); line-height: 1.6;">
+                        Spacious bedsitter perfect for students, with kitchen area, private bathroom, and secure premises.
+                    </p>
+                </div>
+                
+                <div id="transport-option" style="display: none; background: rgba(37, 99, 235, 0.1); border-radius: var(--radius); padding: 15px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 10px; color: var(--deep-blue);">
+                        <i class="fas fa-bus" style="color: var(--accent-blue);"></i>
+                        Available Transport
+                    </h4>
+                    <p style="color: rgba(11, 31, 59, 0.7); margin-bottom: 10px; font-size: 14px;">
+                        UNZA Route: 150 ZMW/month • 7:00 AM & 5:00 PM pickups
+                    </p>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                        <input type="checkbox" id="include-transport" style="width: 18px; height: 18px;">
+                        <span style="color: var(--deep-blue); font-weight: 600;">Include monthly transport</span>
+                    </label>
+                </div>
+                
+                <button class="btn-primary" onclick="startBooking()">
+                    <i class="fas fa-calendar-check"></i> Book Viewing
+                </button>
+            </div>
+        </div>
+
+        <!-- Booking Screen -->
+        <div class="app-screen" id="booking-screen">
+            <div class="app-header">
+                <button class="back-btn" onclick="showScreen('property')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Book Home</div>
+                <div style="width: 44px;"></div>
+            </div>
+
+            <div class="form-section">
+                <h3 style="margin-bottom: 25px; color: var(--deep-blue);">Complete Your Booking</h3>
+                
+                <!-- Step 1: Dates -->
+                <div class="booking-step active" id="step1">
+                    <h4 style="margin-bottom: 15px; color: var(--deep-blue);">Select Move-in Date</h4>
                     <div class="form-group">
-                        <label class="form-label">Special Requests (Optional)</label>
-                        <textarea class="form-input" rows="3" placeholder="Any special requirements..."></textarea>
+                        <label class="form-label">Start Month</label>
+                        <input type="month" class="form-input" id="move-in-date" required>
                     </div>
-
-                    <div style="margin-top: 24px;">
-                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
-                            <input type="checkbox" required style="margin-top: 3px; transform: scale(1.2);">
-                            <span style="font-size: 14px; color: var(--text-medium);">I agree to the house rules and understand this booking is subject to owner confirmation.</span>
+                    <div class="form-group">
+                        <label class="form-label">Duration (Months)</label>
+                        <select class="form-input" id="duration">
+                            <option>1 month</option>
+                            <option>3 months</option>
+                            <option>6 months</option>
+                            <option>12 months</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="nextStep(2)">
+                        Continue to Transport <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Step 2: Transport -->
+                <div class="booking-step" id="step2">
+                    <h4 style="margin-bottom: 15px; color: var(--deep-blue);">Transport Options</h4>
+                    <div style="background: var(--light-bg); border-radius: var(--radius); padding: 20px; margin-bottom: 20px;">
+                        <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; cursor: pointer;">
+                            <input type="radio" name="transport" value="yes" style="width: 18px; height: 18px;">
+                            <div>
+                                <div style="font-weight: 600; color: var(--deep-blue);">Include Trustay Transport</div>
+                                <div style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">150 ZMW/month • Safe daily commute</div>
+                            </div>
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                            <input type="radio" name="transport" value="no" checked style="width: 18px; height: 18px;">
+                            <div>
+                                <div style="font-weight: 600; color: var(--deep-blue);">No transport needed</div>
+                                <div style="color: rgba(11, 31, 59, 0.6); font-size: 14px;">I'll arrange my own transport</div>
+                            </div>
                         </label>
                     </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-secondary" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn-primary" onclick="nextStep(3)">
+                            Continue <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
                 </div>
+                
+                <!-- Step 3: Summary -->
+                <div class="booking-step" id="step3">
+                    <h4 style="margin-bottom: 15px; color: var(--deep-blue);">Booking Summary</h4>
+                    <div class="booking-summary">
+                        <div class="summary-item">
+                            <span>Monthly Rent:</span>
+                            <span>850 ZMW</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Duration:</span>
+                            <span id="summary-duration">3 months</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Transport:</span>
+                            <span id="summary-transport">150 ZMW/month</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>Trustay Fee:</span>
+                            <span>0 ZMW</span>
+                        </div>
+                        <div class="summary-item total">
+                            <span>Total First Payment:</span>
+                            <span id="summary-total">3000 ZMW</span>
+                        </div>
+                    </div>
+                    <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px; margin: 20px 0; text-align: center;">
+                        <i class="fas fa-info-circle"></i> You'll pay the first month + transport (if selected)
+                    </p>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="btn-secondary" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn-primary" onclick="confirmBooking()">
+                            <i class="fas fa-check"></i> Confirm Booking
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <div class="modal-footer" style="padding: 16px 24px 24px; border-top: 1px solid rgba(142, 108, 58, 0.1); display: flex; gap: 12px;">
-                    <button class="btn btn-outline" onclick="closeBookingModal()" style="flex: 1;">Cancel</button>
-                    <button class="btn btn-primary" onclick="submitBooking()" style="flex: 2;">
-                        <i class="fas fa-lock"></i> Confirm Booking
+        <!-- Booking Confirmation Screen -->
+        <div class="app-screen" id="confirmation-screen">
+            <div class="app-header">
+                <button class="back-btn" onclick="showScreen('dashboard')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Booking Confirmed</div>
+                <div style="width: 44px;"></div>
+            </div>
+
+            <div style="text-align: center; padding: 60px 20px;">
+                <div style="width: 80px; height: 80px; background: var(--trust-green); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin: 0 auto 30px;">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 style="margin-bottom: 15px; color: var(--deep-blue);">Booking Request Sent!</h2>
+                <p style="color: rgba(11, 31, 59, 0.6); margin-bottom: 30px; line-height: 1.6;">
+                    Your request for <span id="confirmed-property" style="font-weight: 600;">Modern Bedsitter</span> has been sent to the owner. They'll contact you within 24 hours.
+                </p>
+                
+                <div style="background: var(--light-bg); border-radius: var(--radius); padding: 20px; margin: 30px 0; text-align: left;">
+                    <h4 style="margin-bottom: 15px; color: var(--deep-blue);">What's Next?</h4>
+                    <ul style="color: rgba(11, 31, 59, 0.7); padding-left: 20px; font-size: 14px;">
+                        <li>Owner will contact you to schedule viewing</li>
+                        <li>View the property (free)</li>
+                        <li>Sign digital contract if you like it</li>
+                        <li>Move in on selected date</li>
+                    </ul>
+                </div>
+                
+                <button class="btn-primary" onclick="showScreen('dashboard')">
+                    <i class="fas fa-home"></i> Back to Home
+                </button>
+            </div>
+        </div>
+
+        <!-- Saved Properties Screen -->
+        <div class="app-screen" id="saved-screen">
+            <div class="app-header">
+                <button class="back-btn" onclick="showScreen('dashboard')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="logo-small">Saved Homes</div>
+                <div style="width: 44px;"></div>
+            </div>
+
+            <div class="dashboard-content">
+                <div id="saved-properties">
+                    <!-- Saved properties loaded via JS -->
+                </div>
+                
+                <!-- Empty State -->
+                <div id="saved-empty" class="empty-state" style="display: none;">
+                    <i class="far fa-heart"></i>
+                    <h3 style="margin-bottom: 10px; color: var(--deep-blue);">No saved homes yet</h3>
+                    <p style="color: rgba(11, 31, 59, 0.6); margin-bottom: 30px;">
+                        When you find homes you like, tap the heart to save them here.
+                    </p>
+                    <button class="btn-primary" onclick="showScreen('listings')">
+                        <i class="fas fa-search"></i> Browse Homes
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Toast Notification -->
-        <div class="toast" id="toast">
-            <i class="fas fa-check-circle"></i>
-            <span id="toast-message">Welcome to SAFENEST!</span>
+        <!-- Profile Screen -->
+        <div class="app-screen" id="profile-screen">
+            <div style="background: linear-gradient(135deg, var(--deep-blue) 0%, var(--accent-blue) 100%); padding: 40px 20px; color: white;">
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 600;">
+                        JB
+                    </div>
+                    <div>
+                        <h2 id="profile-name" style="font-size: 1.8rem; margin-bottom: 5px;">John Banda</h2>
+                        <span id="profile-role" style="background: rgba(255, 255, 255, 0.2); padding: 6px 16px; border-radius: 20px; font-size: 14px;">Student</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 style="margin-bottom: 20px; color: var(--deep-blue);">My Account</h3>
+                <div style="margin-bottom: 15px;">
+                    <div style="color: rgba(11, 31, 59, 0.6);">Phone</div>
+                    <div style="font-weight: 600; color: var(--deep-blue);">+260 97 123 4567</div>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <div style="color: rgba(11, 31, 59, 0.6);">Status</div>
+                    <div style="font-weight: 600; color: var(--deep-blue); display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-shield-check" style="color: var(--trust-green);"></i>
+                        Trustay Verified User
+                    </div>
+                </div>
+                
+                <h3 style="margin: 30px 0 20px; color: var(--deep-blue);">My Trustay</h3>
+                <div style="margin-bottom: 15px;">
+                    <a href="#" onclick="showScreen('saved')" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; text-decoration: none; color: var(--deep-blue); border-bottom: 1px solid var(--border-soft);">
+                        <span><i class="fas fa-heart" style="margin-right: 10px; color: var(--accent-blue);"></i> Saved Homes</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#" onclick="showScreen('transport')" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; text-decoration: none; color: var(--deep-blue); border-bottom: 1px solid var(--border-soft);">
+                        <span><i class="fas fa-bus" style="margin-right: 10px; color: var(--accent-blue);"></i> My Transport</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                    <a href="#" onclick="showBookings()" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0; text-decoration: none; color: var(--deep-blue); border-bottom: 1px solid var(--border-soft);">
+                        <span><i class="fas fa-calendar-check" style="margin-right: 10px; color: var(--accent-blue);"></i> My Bookings</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                
+                <div style="margin-top: 40px;">
+                    <h4 style="margin-bottom: 15px; color: var(--deep-blue);">About Trustay</h4>
+                    <p style="color: rgba(11, 31, 59, 0.6); font-size: 14px; line-height: 1.6;">
+                        Trustay is Zambia's trusted platform for monthly living. We verify every home and owner, and provide safe transport options. No agent fees, just honest homes.
+                    </p>
+                </div>
+                
+                <button class="btn-primary" onclick="logout()" style="margin-top: 30px; background: rgba(11, 31, 59, 0.1); color: var(--deep-blue);">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1765,336 +1368,250 @@
         // ===== APP STATE =====
         let currentUser = null;
         let currentRole = 'tenant';
-        let currentScreen = 'welcome';
-        let previousScreen = 'welcome';
-        let currentPropertyId = null;
-        let savedProperties = ['prop_001', 'prop_002', 'prop_004'];
-        let properties = [];
+        let savedProperties = JSON.parse(localStorage.getItem('trustay_saved')) || ['prop1', 'prop2'];
+        let bookings = JSON.parse(localStorage.getItem('trustay_bookings')) || [];
+        let properties = [
+            {
+                id: 'prop1',
+                title: 'Modern Bedsitter near UNZA',
+                location: 'Woodlands, Lusaka',
+                price: '850',
+                image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'Spacious bedsitter perfect for students with kitchen area, private bathroom, and secure premises. Close to UNZA campus.',
+                verified: true,
+                transport: true,
+                badges: ['Verified Owner', 'Inspected Feb 2024', 'UNZA Route']
+            },
+            {
+                id: 'prop2',
+                title: 'Cozy 1-Bedroom in Ridgeway',
+                location: 'Ridgeway, Lusaka',
+                price: '1200',
+                image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'Fully furnished apartment with balcony, secure parking, and 24/7 security. Perfect for young professionals.',
+                verified: true,
+                transport: true,
+                badges: ['Verified Owner', 'Fully Furnished', 'CBU Route']
+            },
+            {
+                id: 'prop3',
+                title: 'Affordable Room in Northmead',
+                location: 'Northmead, Lusaka',
+                price: '650',
+                image: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                description: 'Clean room in shared house with friendly tenants. Includes utilities and WiFi.',
+                verified: false,
+                transport: false,
+                badges: ['New Listing', 'Utilities Included']
+            }
+        ];
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            initializeProperties();
-            loadDashboard();
-            
-            // Add touch effects
-            document.querySelectorAll('.btn, .property-card, .nav-item, .feature-item').forEach(el => {
-                el.addEventListener('touchstart', function() {
-                    this.style.transform = 'scale(0.98)';
-                });
-
-                el.addEventListener('touchend', function() {
-                    this.style.transform = '';
-                });
-            });
-            
-            // Welcome message
+            // After brand intro, show hero screen
             setTimeout(() => {
-                showToast('Welcome to SAFENEST - Find your perfect home!', 'success');
-            }, 1000);
-        });
+                document.getElementById('screen-hero').classList.add('active');
+            }, 3000);
 
-        function initializeProperties() {
-            properties = [
-                {
-                    id: 'prop_001',
-                    title: 'Modern Bedsitter near UNZA',
-                    price: 850,
-                    location: 'Woodlands, Lusaka',
-                    type: 'Bedsitter',
-                    description: 'A spacious, well-lit bedsitter perfect for students. Recently renovated with modern finishes, 24/7 security, and reliable water supply. Located just 10 minutes from UNZA main campus with easy access to public transport.',
-                    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-                    amenities: ['WiFi Included', '24/7 Security', 'Water Included', 'Furnished', 'Private Bathroom'],
-                    transportAvailable: true,
-                    bundlePrice: 950,
-                    verified: true,
-                    featured: true
-                },
-                {
-                    id: 'prop_002',
-                    title: 'Cozy 1-Bedroom in Ridgeway',
-                    price: 1200,
-                    location: 'Ridgeway, Lusaka',
-                    type: '1-Bedroom',
-                    description: 'Fully furnished one-bedroom apartment with kitchenette and living area. Secure compound with parking space. Walking distance to shops and restaurants.',
-                    image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-                    amenities: ['WiFi Ready', 'Security', 'Parking', 'Fully Furnished', 'Kitchenette'],
-                    transportAvailable: true,
-                    bundlePrice: 1320,
-                    verified: true,
-                    featured: true
-                },
-                {
-                    id: 'prop_003',
-                    title: 'Spacious Shared Room near CBU',
-                    price: 600,
-                    location: 'Kitwe, Copperbelt',
-                    type: 'Shared',
-                    description: 'Large shared room in a student house. Perfect for budget-conscious students. Includes study area and shared kitchen.',
-                    image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    amenities: ['Study Area', 'Shared Kitchen', '24/7 Security', 'Water Included', 'WiFi Ready'],
-                    transportAvailable: false,
-                    bundlePrice: null,
-                    verified: false,
-                    featured: false
-                },
-                {
-                    id: 'prop_004',
-                    title: 'Luxury 2-Bedroom in Kabulonga',
-                    price: 2200,
-                    location: 'Kabulonga, Lusaka',
-                    type: '2-Bedroom',
-                    description: 'Modern two-bedroom apartment with premium finishes. Perfect for couples or roommates. Includes gym access and swimming pool.',
-                    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                    amenities: ['Swimming Pool', 'Gym Access', '24/7 Security', 'Parking', 'Fully Furnished', 'WiFi Included'],
-                    transportAvailable: true,
-                    bundlePrice: 2400,
-                    verified: true,
-                    featured: true
-                }
-            ];
-        }
+            // Get Started button
+            document.getElementById('get-started-btn').addEventListener('click', function() {
+                showScreen('register');
+            });
 
-        // ===== UTILITY FUNCTIONS =====
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const icon = toast.querySelector('i');
-            const messageEl = document.getElementById('toast-message');
-
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle';
-                toast.style.background = 'linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)';
-            } else if (type === 'error') {
-                icon.className = 'fas fa-times-circle';
-                toast.style.background = 'linear-gradient(135deg, #E74C3C 0%, #C0392B 100%)';
-            } else if (type === 'warning') {
-                icon.className = 'fas fa-exclamation-triangle';
-                toast.style.background = 'linear-gradient(135deg, var(--secondary) 0%, #F1C40F 100%)';
+            // Check for saved user session
+            const savedUser = localStorage.getItem('trustay_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                currentRole = currentUser.role || 'tenant';
+                showScreen('dashboard');
+                document.getElementById('app').classList.add('active');
+                document.getElementById('screen-hero').classList.remove('active');
+                updateGreeting();
             }
 
-            messageEl.textContent = message;
-            toast.classList.add('show');
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
+            // Load initial properties
+            loadProperties();
+        });
 
         // ===== SCREEN MANAGEMENT =====
         function showScreen(screenId) {
-            if (currentScreen === screenId) return;
-
-            const currentEl = document.getElementById(`${currentScreen}-screen`);
-            const nextEl = document.getElementById(`${screenId}-screen`);
-
-            previousScreen = currentScreen;
-            currentEl.classList.add('exit-left');
-
-            // Update navigation
-            const nav = document.getElementById('bottom-nav-tenant');
-            nav.classList.add('hidden');
-
-            if (screenId === 'dashboard' || screenId === 'listings' || screenId === 'saved' || screenId === 'profile') {
-                nav.classList.remove('hidden');
-                updateActiveNav(nav, screenId);
+            // Hide hero screen when entering app
+            if (screenId !== 'hero') {
+                document.getElementById('screen-hero').classList.remove('active');
+                document.getElementById('app').classList.add('active');
             }
 
-            setTimeout(() => {
-                currentEl.classList.remove('active');
-                currentEl.classList.remove('exit-left');
+            // Show bottom nav only if logged in
+            if (currentUser && screenId !== 'login' && screenId !== 'register' && screenId !== 'hero') {
+                document.getElementById('bottomNav').style.display = 'flex';
+            } else {
+                document.getElementById('bottomNav').style.display = 'none';
+            }
 
-                nextEl.classList.add('active');
-                currentScreen = screenId;
+            // Hide all app screens
+            document.querySelectorAll('.app-screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
 
-                loadScreenContent(screenId);
-            }, 300);
+            // Show target screen
+            const targetScreen = document.getElementById(screenId + '-screen');
+            if (targetScreen) {
+                targetScreen.classList.add('active');
+            }
+
+            // Update nav
+            updateNav(screenId);
+            
+            // Special screen handling
+            if (screenId === 'dashboard' && currentRole === 'owner') {
+                showScreen('owner-dashboard');
+            }
+            
+            if (screenId === 'saved') {
+                loadSavedProperties();
+            }
         }
 
-        function updateActiveNav(navElement, screenId) {
-            navElement.querySelectorAll('.nav-item').forEach(item => {
+        function updateNav(screenId) {
+            document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
             
-            const activeItem = navElement.querySelector(`.nav-item[onclick*="${screenId}"]`);
-            if (activeItem) {
-                activeItem.classList.add('active');
+            const activeNav = document.querySelector(`.nav-item[onclick*="${screenId}"]`);
+            if (activeNav) {
+                activeNav.classList.add('active');
             }
         }
 
-        function loadScreenContent(screenId) {
-            switch(screenId) {
-                case 'dashboard':
-                    loadDashboard();
-                    break;
-                case 'listings':
-                    loadAllProperties();
-                    break;
-                case 'property':
-                    if (currentPropertyId) {
-                        loadPropertyDetail(currentPropertyId);
-                    }
-                    break;
-                case 'saved':
-                    loadSavedProperties();
-                    break;
-                case 'profile':
-                    loadProfile();
-                    break;
-            }
-        }
-
-        function goBack() {
-            if (previousScreen) {
-                showScreen(previousScreen);
-            }
-        }
-
-        function goBackToListings() {
-            showScreen('listings');
-        }
-
-        function toggleFilters() {
-            const filters = document.getElementById('filters');
-            filters.classList.toggle('hidden');
-        }
-
-        // ===== AUTHENTICATION =====
-        function quickDemoLogin(role) {
-            currentRole = role;
+        // ===== AUTH FUNCTIONS =====
+        function login(event) {
+            if (event) event.preventDefault();
+            
             currentUser = {
-                name: role === 'tenant' ? 'John Banda' : 'Sarah Landlord',
+                name: 'John Banda',
                 phone: '971234567',
-                type: role === 'tenant' ? 'student' : 'owner',
-                institution: role === 'tenant' ? 'University of Zambia (UNZA)' : 'N/A',
-                budget: '800-1200 ZMW'
+                role: 'tenant',
+                institution: 'UNZA'
             };
 
-            showToast(`Welcome to SAFENEST${role === 'tenant' ? '! Ready to find your perfect home?' : ' Property Owner!'}`, 'success');
+            localStorage.setItem('trustay_user', JSON.stringify(currentUser));
             showScreen('dashboard');
+            updateGreeting();
+            loadProperties();
+        }
+
+        function register(event) {
+            if (event) event.preventDefault();
+            
+            const name = document.querySelector('#register-screen input[type="text"]').value || 'John Banda';
+            currentUser = {
+                name: name,
+                phone: document.querySelector('#register-screen input[type="tel"]').value,
+                role: currentRole,
+                institution: currentRole === 'tenant' ? 'UNZA' : 'Property Owner'
+            };
+
+            localStorage.setItem('trustay_user', JSON.stringify(currentUser));
+            
+            if (currentRole === 'owner') {
+                showScreen('owner-dashboard');
+            } else {
+                showScreen('dashboard');
+            }
+            
+            updateGreeting();
         }
 
         function selectRole(role) {
             currentRole = role;
-            const tenantBtn = document.getElementById('tenant-btn');
-            const ownerBtn = document.getElementById('owner-btn');
+            const tenantBtn = document.getElementById('role-tenant');
+            const ownerBtn = document.getElementById('role-owner');
             
             if (role === 'tenant') {
-                tenantBtn.style.background = 'rgba(42, 92, 61, 0.1)';
-                tenantBtn.style.color = 'var(--primary)';
-                tenantBtn.style.borderColor = 'var(--primary)';
-                
+                tenantBtn.style.borderColor = 'var(--accent-blue)';
+                tenantBtn.style.background = 'rgba(37, 99, 235, 0.1)';
+                tenantBtn.style.color = 'var(--accent-blue)';
+                ownerBtn.style.borderColor = 'var(--border-soft)';
                 ownerBtn.style.background = 'transparent';
-                ownerBtn.style.color = 'var(--primary)';
-                ownerBtn.style.borderColor = 'rgba(42, 92, 61, 0.1)';
-                
-                document.getElementById('tenant-fields').classList.remove('hidden');
-                document.getElementById('owner-fields').classList.add('hidden');
+                ownerBtn.style.color = 'var(--deep-blue)';
             } else {
-                ownerBtn.style.background = 'rgba(42, 92, 61, 0.1)';
-                ownerBtn.style.color = 'var(--primary)';
-                ownerBtn.style.borderColor = 'var(--primary)';
-                
+                ownerBtn.style.borderColor = 'var(--accent-blue)';
+                ownerBtn.style.background = 'rgba(37, 99, 235, 0.1)';
+                ownerBtn.style.color = 'var(--accent-blue)';
+                tenantBtn.style.borderColor = 'var(--border-soft)';
                 tenantBtn.style.background = 'transparent';
-                tenantBtn.style.color = 'var(--primary)';
-                tenantBtn.style.borderColor = 'rgba(42, 92, 61, 0.1)';
-                
-                document.getElementById('tenant-fields').classList.add('hidden');
-                document.getElementById('owner-fields').classList.remove('hidden');
+                tenantBtn.style.color = 'var(--deep-blue)';
             }
-            
-            document.getElementById('user-role').value = role;
-        }
-
-        function login(event) {
-            event.preventDefault();
-            
-            currentRole = Math.random() > 0.5 ? 'tenant' : 'owner';
-            currentUser = {
-                name: currentRole === 'tenant' ? 'John Banda' : 'Sarah Landlord',
-                phone: '971234567',
-                type: currentRole === 'tenant' ? 'student' : 'owner',
-                institution: currentRole === 'tenant' ? 'University of Zambia (UNZA)' : 'N/A',
-                budget: '800-1200 ZMW'
-            };
-
-            showToast('Welcome back to SAFENEST!', 'success');
-            showScreen('dashboard');
-        }
-
-        function register(event) {
-            event.preventDefault();
-            
-            const role = document.getElementById('user-role').value;
-            const name = document.querySelector('#register-form input[type="text"]').value || 'John Banda';
-            
-            currentRole = role;
-            currentUser = {
-                name,
-                phone: '971234567',
-                type: role,
-                institution: role === 'tenant' ? 'University of Zambia (UNZA)' : 'N/A',
-                budget: '800-1200 ZMW'
-            };
-
-            showToast(`Welcome to our community, ${name}!`, 'success');
-            showScreen('dashboard');
         }
 
         function logout() {
             currentUser = null;
-            currentRole = 'tenant';
-            showToast('Successfully logged out', 'success');
-            showScreen('welcome');
+            localStorage.removeItem('trustay_user');
+            showScreen('hero');
+            document.getElementById('app').classList.remove('active');
+            document.getElementById('screen-hero').classList.add('active');
         }
 
         // ===== PROPERTY FUNCTIONS =====
+        function loadProperties() {
+            const featuredContainer = document.getElementById('featured-properties');
+            const allContainer = document.getElementById('all-properties');
+
+            featuredContainer.innerHTML = '';
+            allContainer.innerHTML = '';
+
+            properties.forEach(property => {
+                const propertyCard = createPropertyCard(property);
+                featuredContainer.innerHTML += propertyCard;
+                allContainer.innerHTML += propertyCard;
+            });
+            
+            // Update saved count
+            document.getElementById('saved-count').textContent = savedProperties.length;
+        }
+
+        function loadSavedProperties() {
+            const savedContainer = document.getElementById('saved-properties');
+            const emptyState = document.getElementById('saved-empty');
+            
+            savedContainer.innerHTML = '';
+            
+            if (savedProperties.length === 0) {
+                savedContainer.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+            
+            emptyState.style.display = 'none';
+            savedContainer.style.display = 'block';
+            
+            properties.forEach(property => {
+                if (savedProperties.includes(property.id)) {
+                    savedContainer.innerHTML += createPropertyCard(property);
+                }
+            });
+        }
+
         function createPropertyCard(property) {
             const isSaved = savedProperties.includes(property.id);
-
             return `
-                <div class="property-card" onclick="viewProperty('${property.id}')">
-                    <div class="property-image" style="background-image: url('${property.image}');">
-                        <div class="property-overlay"></div>
-                        <div class="property-badges">
-                            <span class="badge badge-type">${property.type}</span>
-                            ${property.transportAvailable ? '<span class="badge badge-transport"><i class="fas fa-bus"></i> Transport</span>' : ''}
-                            ${property.verified ? '<span class="badge badge-verified"><i class="fas fa-check"></i> Verified</span>' : ''}
-                        </div>
-                        <button class="property-fav ${isSaved ? 'active' : ''}" onclick="toggleFavorite('${property.id}', event)">
-                            <i class="${isSaved ? 'fas' : 'far'} fa-heart"></i>
-                        </button>
+                <div class="property-card fade-in" onclick="viewProperty('${property.id}')">
+                    <div class="property-image" style="background-image: url('${property.image}')">
+                        ${property.transport ? '<div class="transport-tag"><i class="fas fa-bus"></i> Transport Available</div>' : ''}
                     </div>
                     <div class="property-content">
-                        <div class="property-header">
-                            <div>
-                                <h3 class="property-title">${property.title}</h3>
-                                <div class="property-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>${property.location}</span>
-                                </div>
-                                <div style="margin-top: 8px;">
-                                    ${property.verified ? '<span class="trust-badge verified"><i class="fas fa-badge-check"></i> Verified</span>' : ''}
-                                    ${property.transportAvailable ? '<span class="trust-badge"><i class="fas fa-bus"></i> Transport</span>' : ''}
-                                    <span class="trust-badge escrow"><i class="fas fa-lock"></i> Escrow</span>
-                                </div>
-                            </div>
-                            <div class="property-price">${property.price}<span>ZMW / month</span></div>
+                        <h3 class="property-title">${property.title}</h3>
+                        <p style="color: rgba(11, 31, 59, 0.6); margin-bottom: 10px;">
+                            <i class="fas fa-map-marker-alt"></i> ${property.location}
+                        </p>
+                        <div class="trust-badges">
+                            ${property.verified ? '<span class="trust-badge"><i class="fas fa-shield-check"></i> Verified</span>' : ''}
+                            ${property.badges.slice(0, 2).map(badge => `<span class="trust-badge blue">${badge}</span>`).join('')}
                         </div>
-                        
-                        <div class="property-amenities">
-                            ${property.amenities.slice(0, 3).map(amenity => `
-                                <div class="amenity">
-                                    <i class="fas fa-check"></i>
-                                    <span>${amenity}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                        
-                        <div class="property-footer">
-                            <button class="btn-outline" onclick="viewProperty('${property.id}')">
-                                <i class="fas fa-eye"></i> View Details
-                            </button>
-                            <button class="btn-solid" onclick="viewProperty('${property.id}')">
-                                <i class="fas fa-calendar-check"></i> Book Now
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                            <div class="property-price">${property.price} ZMW/month</div>
+                            <button onclick="toggleSave('${property.id}', event)" style="background: none; border: none; color: ${isSaved ? 'var(--accent-blue)' : 'rgba(11, 31, 59, 0.3)'}; font-size: 1.2rem; cursor: pointer;">
+                                <i class="${isSaved ? 'fas' : 'far'} fa-heart"></i>
                             </button>
                         </div>
                     </div>
@@ -2102,176 +1619,242 @@
             `;
         }
 
-        function loadDashboard() {
-            if (!currentUser) return;
+        function toggleSave(propertyId, event) {
+            if (event) event.stopPropagation();
+            
+            const index = savedProperties.indexOf(propertyId);
+            if (index === -1) {
+                savedProperties.push(propertyId);
+                showToast('Home saved to favorites!');
+            } else {
+                savedProperties.splice(index, 1);
+                showToast('Home removed from favorites');
+            }
+            
+            localStorage.setItem('trustay_saved', JSON.stringify(savedProperties));
+            loadProperties();
+            
+            if (document.getElementById('saved-screen').classList.contains('active')) {
+                loadSavedProperties();
+            }
+        }
 
-            // Update greeting
+        function viewProperty(propertyId) {
+            const property = properties.find(p => p.id === propertyId);
+            if (!property) return;
+            
+            document.getElementById('property-title').textContent = property.title;
+            document.getElementById('property-location').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${property.location}`;
+            document.getElementById('property-description').textContent = property.description;
+            
+            const imageDiv = document.getElementById('property-image');
+            imageDiv.style.backgroundImage = `url('${property.image}')`;
+            imageDiv.style.backgroundSize = 'cover';
+            imageDiv.style.backgroundPosition = 'center';
+            
+            // Update transport tag
+            const transportTag = document.getElementById('property-transport-tag');
+            const transportOption = document.getElementById('transport-option');
+            if (property.transport) {
+                transportTag.style.display = 'flex';
+                transportOption.style.display = 'block';
+            } else {
+                transportTag.style.display = 'none';
+                transportOption.style.display = 'none';
+            }
+            
+            // Update badges
+            const badgesDiv = document.getElementById('property-badges');
+            badgesDiv.innerHTML = property.badges.map(badge => 
+                `<span class="trust-badge ${badge.includes('Verified') ? '' : 'blue'}">${badge}</span>`
+            ).join('');
+            
+            // Update save icon
+            const isSaved = savedProperties.includes(property.id);
+            document.getElementById('save-icon').className = isSaved ? 'fas fa-heart' : 'far fa-heart';
+            
+            // Store current property for booking
+            window.currentProperty = property;
+            
+            showScreen('property');
+        }
+
+        function toggleSaveProperty() {
+            if (!window.currentProperty) return;
+            toggleSave(window.currentProperty.id);
+            
+            const icon = document.getElementById('save-icon');
+            const isSaved = savedProperties.includes(window.currentProperty.id);
+            icon.className = isSaved ? 'fas fa-heart' : 'far fa-heart';
+        }
+
+        // ===== BOOKING FLOW =====
+        function startBooking() {
+            if (!window.currentProperty) return;
+            showScreen('booking');
+        }
+
+        function nextStep(step) {
+            document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Update summary if we're on step 3
+            if (step === 3) {
+                updateBookingSummary();
+            }
+        }
+
+        function prevStep(step) {
+            document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+            document.getElementById(`step${step}`).classList.add('active');
+        }
+
+        function updateBookingSummary() {
+            const duration = document.getElementById('duration').value;
+            const transportSelected = document.querySelector('input[name="transport"]:checked').value === 'yes';
+            
+            const rent = parseInt(window.currentProperty.price);
+            const transportCost = transportSelected ? 150 : 0;
+            const months = parseInt(duration);
+            
+            const total = (rent + transportCost) * months;
+            
+            document.getElementById('summary-duration').textContent = duration;
+            document.getElementById('summary-transport').textContent = transportSelected ? '150 ZMW/month' : 'No transport';
+            document.getElementById('summary-total').textContent = total.toLocaleString() + ' ZMW';
+        }
+
+        function confirmBooking() {
+            const booking = {
+                id: Date.now(),
+                propertyId: window.currentProperty.id,
+                propertyTitle: window.currentProperty.title,
+                date: new Date().toLocaleDateString(),
+                status: 'pending'
+            };
+            
+            bookings.push(booking);
+            localStorage.setItem('trustay_bookings', JSON.stringify(bookings));
+            
+            document.getElementById('confirmed-property').textContent = window.currentProperty.title;
+            showScreen('confirmation');
+            
+            showToast('Booking request sent successfully!');
+        }
+
+        // ===== TRANSPORT FUNCTIONS =====
+        function selectTransport(route) {
+            showToast(`Selected ${route.toUpperCase()} route`);
+        }
+
+        // ===== OWNER FUNCTIONS =====
+        function showOwnerAddProperty() {
+            showScreen('owner-add-property');
+        }
+
+        function showOwnerProperties() {
+            showToast('Loading your properties...');
+        }
+
+        function showOwnerBookings() {
+            showToast('Loading booking requests...');
+        }
+
+        function showOwnerVerification() {
+            showToast('Owner verification details');
+        }
+
+        function toggleTransportOption(include) {
+            showToast(include ? 'Transport option included' : 'No transport included');
+        }
+
+        function submitProperty() {
+            showToast('Property listed successfully!');
+            setTimeout(() => {
+                showScreen('owner-dashboard');
+            }, 1500);
+        }
+
+        // ===== UI UTILITIES =====
+        function updateGreeting() {
+            if (!currentUser) return;
+            
             const hour = new Date().getHours();
             let greeting = 'Good evening';
             if (hour < 12) greeting = 'Good morning';
             else if (hour < 18) greeting = 'Good afternoon';
             
             document.getElementById('greeting-text').textContent = `${greeting}, ${currentUser.name.split(' ')[0]}!`;
-            document.getElementById('saved-count').textContent = savedProperties.length;
-            
-            // Load featured properties
-            const featuredContainer = document.getElementById('featured-properties');
-            const featured = properties.filter(p => p.featured && p.verified);
-            featuredContainer.innerHTML = featured.map(createPropertyCard).join('');
-
-            // Load transport properties
-            const transportContainer = document.getElementById('transport-properties');
-            const transport = properties.filter(p => p.transportAvailable && p.verified);
-            transportContainer.innerHTML = transport.map(createPropertyCard).join('');
-        }
-
-        function loadAllProperties() {
-            const container = document.getElementById('all-properties');
-            const verifiedProperties = properties.filter(p => p.verified);
-            container.innerHTML = verifiedProperties.map(createPropertyCard).join('');
-        }
-
-        function viewProperty(propertyId) {
-            currentPropertyId = propertyId;
-            showScreen('property');
-        }
-
-        function loadPropertyDetail(propertyId) {
-            const property = properties.find(p => p.id === propertyId);
-            if (!property) return;
-
-            // Update property details
-            document.getElementById('property-title').textContent = property.title;
-            document.getElementById('property-location').textContent = property.location;
-            document.getElementById('property-description').textContent = property.description;
-            document.getElementById('property-price').textContent = `${property.price}`;
-
-            // Update favorite button
-            const isSaved = savedProperties.includes(propertyId);
-            const favBtn = document.getElementById('detail-fav-btn');
-            favBtn.innerHTML = isSaved ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
-
-            // Load amenities
-            const amenitiesContainer = document.getElementById('property-amenities');
-            amenitiesContainer.innerHTML = property.amenities.map(amenity => `
-                <div class="amenity">
-                    <i class="fas fa-check"></i>
-                    <span>${amenity}</span>
-                </div>
-            `).join('');
-
-            // Load transport options
-            const transportContainer = document.getElementById('transport-options');
-            if (property.transportAvailable) {
-                transportContainer.innerHTML = `
-                    <div style="background: var(--warm-white); border-radius: var(--radius-sm); padding: 20px; margin-bottom: 15px; border: 1px solid rgba(142, 108, 58, 0.1);">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                            <div>
-                                <h5 style="color: var(--primary); margin-bottom: 5px;">Campus Shuttle Direct</h5>
-                                <p style="font-size: 13px; color: var(--text-medium);">UNZA Main Gate to Woodlands via Great East Road</p>
-                            </div>
-                            <div style="text-align: right;">
-                                <div style="font-weight: 700; color: var(--secondary);">100 ZMW</div>
-                                <div style="font-size: 12px; color: var(--text-medium);">/month</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-medium);">
-                            <i class="fas fa-clock"></i>
-                            <span>Mon-Fri: 7:30 AM, 1:00 PM, 5:30 PM</span>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-        function toggleFavorite(propertyId, event) {
-            if (event) event.stopPropagation();
-
-            const index = savedProperties.indexOf(propertyId);
-            if (index === -1) {
-                savedProperties.push(propertyId);
-                showToast('Added to saved homes', 'success');
-            } else {
-                savedProperties.splice(index, 1);
-                showToast('Removed from saved homes', 'warning');
-            }
-
-            // Update UI
-            if (currentScreen === 'property') {
-                const favBtn = document.getElementById('detail-fav-btn');
-                const isSaved = savedProperties.includes(propertyId);
-                favBtn.innerHTML = isSaved ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
-            }
-
-            // Update saved count
-            document.getElementById('saved-count').textContent = savedProperties.length;
-            
-            // Reload saved screen if active
-            if (currentScreen === 'saved') {
-                loadSavedProperties();
-            }
-        }
-
-        function loadSavedProperties() {
-            const container = document.getElementById('saved-properties');
-            const noSavedMessage = document.getElementById('no-saved-message');
-            const saved = properties.filter(p => savedProperties.includes(p.id));
-            
-            if (saved.length === 0) {
-                container.classList.add('hidden');
-                noSavedMessage.classList.remove('hidden');
-            } else {
-                container.classList.remove('hidden');
-                noSavedMessage.classList.add('hidden');
-                container.innerHTML = saved.map(createPropertyCard).join('');
-            }
-        }
-
-        // ===== PROFILE FUNCTIONS =====
-        function loadProfile() {
-            if (!currentUser) return;
-
             document.getElementById('profile-name').textContent = currentUser.name;
-            document.getElementById('profile-type').textContent = currentRole === 'tenant' ? 'Student' : 'Property Owner';
-            document.getElementById('profile-phone').textContent = currentUser.phone;
-            document.getElementById('profile-institution').textContent = currentUser.institution;
-            document.getElementById('profile-budget').textContent = currentUser.budget;
-            document.getElementById('profile-saved-count').textContent = savedProperties.length;
+            document.getElementById('profile-role').textContent = 
+                currentUser.role === 'owner' ? 'Property Owner' : currentUser.institution;
+            
+            // Update role UI
+            selectRole(currentUser.role);
         }
 
-        // ===== BOOKING FUNCTIONS =====
-        function showBookingModal() {
-            if (!currentUser) {
-                showToast('Please login to book a home', 'warning');
-                showScreen('login');
-                return;
+        function toggleFilters() {
+            const filters = document.getElementById('filters-panel');
+            filters.style.display = filters.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function showBookings() {
+            if (bookings.length === 0) {
+                showToast('No bookings yet');
+            } else {
+                showToast(`You have ${bookings.length} booking${bookings.length === 1 ? '' : 's'}`);
             }
-
-            const property = properties.find(p => p.id === currentPropertyId);
-            if (!property) return;
-
-            // Update modal content
-            document.getElementById('booking-property-title').textContent = property.title;
-            document.getElementById('booking-property-location').textContent = property.location;
-            document.getElementById('booking-package').textContent = property.transportAvailable ? 'Housing + Transport Bundle' : 'Housing Only';
-            document.getElementById('booking-duration').textContent = '6 months';
-            document.getElementById('booking-move-in').textContent = '15 Nov 2023';
-
-            const totalPrice = property.bundlePrice ? property.bundlePrice * 6 : property.price * 6;
-            document.getElementById('booking-total').textContent = `${totalPrice.toLocaleString()} ZMW`;
-
-            // Show modal
-            document.getElementById('booking-modal').classList.add('active');
         }
 
-        function closeBookingModal() {
-            document.getElementById('booking-modal').classList.remove('active');
+        function showToast(message) {
+            // Remove existing toast
+            const existingToast = document.querySelector('.toast');
+            if (existingToast) existingToast.remove();
+            
+            // Create new toast
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--deep-blue);
+                color: white;
+                padding: 12px 24px;
+                border-radius: var(--radius);
+                z-index: 10000;
+                animation: fadeIn 0.3s ease;
+                box-shadow: var(--shadow-medium);
+                font-weight: 500;
+            `;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        function submitBooking() {
-            closeBookingModal();
-            showToast('Booking submitted! Owner will contact you shortly.', 'success');
+        // ===== PERSISTENCE HELPERS =====
+        function saveToLocalStorage(key, data) {
+            localStorage.setItem(`trustay_${key}`, JSON.stringify(data));
+        }
+
+        function loadFromLocalStorage(key) {
+            const data = localStorage.getItem(`trustay_${key}`);
+            return data ? JSON.parse(data) : null;
         }
     </script>
 </body>
 </html>
+
+            
+
+       
+                   
+
+      
